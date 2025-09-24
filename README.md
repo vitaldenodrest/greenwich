@@ -2,6 +2,32 @@
 
 Messy repo for my research internship at Greenwich university.
 
+## Installation
+
+Please read this section for effortless startup.
+
+### Prerequisites
+
+Make sure you have a [Conda](https://en.wikipedia.org/wiki/Conda_(package_manager)) distribution on your machine.
+
+If you want to run computations on GPUs, make sure you have a recent [CUDA](https://developer.nvidia.com/cuda-toolkit) version ready to work with PyTorch.
+
+### Using the right Conda environment
+
+Create the adequate conda yaml file for your machine and eventually your CUDA version.
+
+As of now, a template is provided for mac users.
+
+You can write one for your machine using the [PyTorch guide](http://pytorch.org/get-started/locally/).
+
+### One final step
+
+Now that you have an adequate yaml file for your configuration, just run:
+
+```bash
+conda env create -p ./greenwich-conda --file ./[your-configuration.yaml]
+```
+
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
