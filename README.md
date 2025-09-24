@@ -1,6 +1,6 @@
 # greenwich
 
-
+Messy repo for my research internship at Greenwich university.
 
 ## Getting started
 
