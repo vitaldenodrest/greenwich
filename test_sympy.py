@@ -1,4 +1,5 @@
 from sympy import symbols, diff, integrate
+from sympy.core import sympify
 from sympy.functions.elementary.complexes import conjugate
 from sympy.printing.pretty.pretty import pretty
 
@@ -20,3 +21,5 @@ def a(v, u):
 
 # TEST
 print(pretty(a(p_1, p_2)))
+
+print(sympify(p_1))
