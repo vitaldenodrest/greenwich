@@ -23,7 +23,6 @@ CODE
 basic
 '''
 
-import matplotlib as mp
 import matplotlib.pyplot as plt
 import cmath
 import numpy as np
@@ -37,15 +36,16 @@ def f(x):
 def u(x):
     return cmath.exp(k*x*1j)
 
-# Uniform mesh
-mesh = np.linspace(start=0, stop=1, num=20)
+# Uniform partition of the unit interval
+n = 20
+mesh = np.linspace(start=0, stop=1, num=n)
 
-# Elements
-elements = 
+# Display 1D interval
+fig = plt.figure()
+ax = fig.add_subplot()
+ax.scatter(mesh, [0 for _ in mesh])
+plt.show()
 
-
-
-# Generating test solution basis
 
 
 # Filling in the matrix (slow pedagogic code)
@@ -54,7 +54,7 @@ n_base = 4*n_elems # for each element, there are 4 base functions (the polynomia
 A = np.zeros(shape=(n_base, n_base), dtype=np.complex64)
 for i in range(n_base):
     for j in range(n_base):
-        start
+        pass
 
 
 
@@ -62,14 +62,8 @@ for i in range(n_base):
 U_nodal = [u(x) for x in mesh]
 
 # Compute smooth plot for the solution
-smooth_mesh = [0 + 0.01*i for i in range(101)]
+smooth_mesh = np.linspace(start=0, stop=1, num=1000)
 U_smooth = [u(x) for x in smooth_mesh]
-
-# Plot the basis functions
-fig, ax = plt.subplots()
-###
-
-plt.show()
 
 
 # Plot the solution (real part)
