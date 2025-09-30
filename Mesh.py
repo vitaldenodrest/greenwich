@@ -18,10 +18,9 @@ class Mesh:
         return self.nodes_coords.size()[1]
         
         
-    def plot(self):
+    def plot(self) -> None:
         """2D
         """
-        import matplotlib as mp
         import matplotlib.pyplot as plt
         
         dim = self.dimension()
@@ -36,7 +35,7 @@ class Mesh:
         # Display elements
         if self.elems_p is None or dim == 3:
             plt.show()
-            return None
+            return
         for i in range(len(self.elems_p) - 1):
             start = self.elems_p[i]
             end = self.elems_p[i+1]
