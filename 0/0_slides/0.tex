@@ -1,0 +1,60 @@
+\documentclass{beamer}
+
+\usetheme{cs}
+
+\title{Using \textbf{beamercsxgre}}
+\author{Frédéric Boulanger, Vital de Nodrest}
+\date{\today}
+\institute[Supélec]{CentraleSupélec -- University of Greenwich}
+
+\begin{document}
+
+\titlegraphic{\logocstext}
+
+\frame{\titlepage}
+
+\begin{frame}[fragile]
+  \frametitle{A beamer style for CS x Greenwich}
+  
+  \begin{block}{Getting started}
+    \begin{verbatim}
+\documentclass{beamer}
+\usetheme{cs}
+    \end{verbatim}
+  \end{block}
+  
+  \begin{block}{Commands}
+	\begin{itemize}
+	  \item \verb|\logocs[<scale>]| \\
+	        displaying the CentraleSupélec logo without text\\
+			\centerline{\logocs}
+	
+	  \item \verb|\logocstext[<scale>]| \\
+            displaying the CentraleSupélec logo with text\\
+			\centerline{\logocstext}
+
+      \item \verb|\timestamp| \\
+            displaying compilation date\\
+            \centerline{\timestamp}
+	\end{itemize}
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{The Greenwich logos}
+    
+    \begin{block}{Commandes}
+      \begin{itemize}
+        \item \verb|\logogre[<scale>]| \\
+              the textless University of Greenwich logo does not exist yet\\
+      
+        \item \verb|\logogretext[<scale>]| \\
+              displaying the University of Greenwich's logo with text\\
+              \centerline{\logogretext}
+      \end{itemize}
+    \end{block}
+    
+  \end{frame}
+
+\end{document}
