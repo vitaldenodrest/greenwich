@@ -23,7 +23,7 @@
   \leavevmode\leftskip=2ex%
   \llap{%
     \usebeamerfont*{section number projected}%
-    \usebeamercolor{section number projected}%
+    \usebeamercolor[fg]{section in toc}%
     \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
       \color{bg}
       \pgfpathcircle{\pgfpoint{-0.02em}{.59ex}}{1.2ex}
@@ -35,6 +35,7 @@
 }
 
 \defbeamertemplate*{subsection in toc}{cs}{%
+\usebeamercolor[fg]{beamer-color name}
   \leavevmode\leftskip=2em\inserttocsubsection\par
 }
 

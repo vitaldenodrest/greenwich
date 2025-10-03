@@ -8,28 +8,29 @@
 	sorting=ynt
 ]{biblatex}
 
+\usepackage{derivative}
+\usepackage{subfig}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
 \addbibresource{references.bib}
 
 \usetheme{cs}
 
-\title{Using \textbf{beamercsxgre}}
-\author{Frédéric Boulanger, Vital de Nodrest}
+
+% Document data for the title page
+\title{Galerkine methods for the 1D Helmholtz equation}
+\subtitle{An introductory example}
+\author[V.~de Nodrest]{V.~de Nodrest\inst{1}}
+\institute[UFT/VFU]{
+  \inst{1} CentraleSupélec, Université Paris Saclay
+}
 \date{\today}
 
 
-\author[Arthur, Doe] % (optional)
-{A.~B.~Arthur\inst{1} \and J.~Doe\inst{2}}
-
-\institute[VFU] % (optional)
-{
-  \inst{1}%
-  Faculty of Physics\\
-  Very Famous University
-  \and
-  \inst{2}%
-  Faculty of Chemistry\\
-  Very Famous University
-}
+% Definir o nome do orientador
+\newcommand{\advisorname}{\textbf{Orientador:}  Prof. Dr. Nome do Orientador}
 
 
 % The next block of commands puts the table of contents at the beginning of each section and highlights the current section
@@ -42,10 +43,10 @@
 }
 
 
-
 \begin{document}
 
-\titlegraphic{\logocstext}
+
+\titlegraphic{\logocstext \hspace{2em} \logogretext}
 
 \frame{\titlepage}
 
@@ -54,7 +55,88 @@
   \tableofcontents    
 \end{frame}
 
-\section{Commands}
+\section{First}
+
+\subsection{First first}
+
+
+\begin{frame}
+  \frametitle{The Helmholtz equation}
+
+  Bla
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Our problem}
+
+  We will consider the following complex-valued problem:
+
+  \begin{block}{Our 1D Helmholtz problem}
+    \vspace{-0.6cm}
+    \begin{align*}
+      \odv[2]{u}{x} + k^2 u &= 0 ~ ~ {\text in} ~ ~ ]0, 1[ \\
+      u(0) &= i k \\
+      u(1) &= i k u(1)
+    \end{align*}
+    \vspace{-0.6cm}
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{The exact solution}
+
+  The problem can be solved
+  by seperating the real and imaginary parts
+  and using first year real analysis results
+  (linear partial differential equations of order 2).
+  This yields the unique solution thus defined:
+
+  \begin{block}{The exact solution}
+    \vspace{-0.6cm}
+    \begin{align*}
+      \forall x \in [0, 1], ~ u(x) &= e^{ikx} 
+    \end{align*}
+    \vspace{-0.6cm}
+  \end{block}
+
+  \begin{figure}
+    \centering
+    \subfloat[First subfigure\label{fig:a}]{
+
+      \begin{tikzpicture}[scale=0.4]
+        \begin{axis}[view={25}{15}]
+            \addplot3+ [
+                domain=0:100,
+                samples=60,
+                samples y=1,
+            ] (
+        {x},
+        {cos(10*\x)},
+        {sin(10*\x)}
+        );
+        \end{axis}
+      \end{tikzpicture}
+    }
+    \qquad
+    \subfloat[Second subfigure\label{fig:b}]{
+      \begin{tikzpicture}[scale=0.7]
+      \draw (0,0) -- (1,1) plot coordinates {(2,0)  (4,0)};
+      \draw[color=red,xshift=5cm]
+            (0,0) -- (1,1) -- plot coordinates {(2,0)  (4,0)};
+    \end{tikzpicture}
+    }
+  \caption{A figure}
+  \label{fig:1}
+  \end{figure}
+
+\end{frame}
+
+
+
+
 
 \begin{frame}[fragile]
   \frametitle{A beamer style for CS x Greenwich}
@@ -97,7 +179,7 @@
       
         \item \verb|\logogretext[<scale>]| \\
               displaying the University of Greenwich's logo with text\\
-              \centerline{\logogretext}
+        \centerline{\logogretext}
         \item The logo is scaled to fixed height
       \end{itemize}
     \end{block}

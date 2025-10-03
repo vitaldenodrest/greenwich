@@ -38,7 +38,7 @@
 
 % Shadow color
 \setbeamercolor{item projected}{bg=cs-darkgray}
-% Outer theme palette What is this for?
+% Outer theme palette. What is this for?
 \setbeamercolor*{palette primary}{fg=cs-logored}
 \setbeamercolor*{palette secondary}{fg=gre-logoblue}
 \setbeamercolor*{palette tertiary}{fg=cs-logoblue}
@@ -56,18 +56,26 @@
 \setbeamercolor*{block body}{bg=gre-logoblue!10}
 % Alerted colors
 \setbeamercolor*{block title alerted}{fg=white, bg=alert-red}
-\setbeamercolor{alert}{use=palette primary, parent=palette primary}
+\setbeamercolor{alert}{use=palette primary, parent=palette primary} % What is this for?
 \setbeamercolor*{block body alerted}{bg=alert-red!10}
 \setbeamercolor{alerted text}{use=palette primary, parent=palette primary}
 % Example colors
 \setbeamercolor*{block title example}{fg=white, bg=cs-logoblue}
 \setbeamercolor*{block body example}{bg=cs-logoblue!10}
-\setbeamercolor{example}{use=palette tertiary, parent=palette tertiary}
+\setbeamercolor{example}{use=palette tertiary, parent=palette tertiary} % What is this for?
 \setbeamercolor{example text}{use=palette tertiary, parent=palette tertiary}
 % What is this for?
 \setbeamercolor*{separation line}{}
 \setbeamercolor*{fine separation line}{}
-% 
+% Footline colors
+\setbeamercolor*{author in head/foot}{fg=white} % Not used
+\setbeamercolor*{title in head/foot}{fg=gre-logoblue} % Title
+\setbeamercolor*{date in head/foot}{fg=white} % Date and frame number
+\setbeamercolor*{section in head/foot}{fg=cs-logored} % Section and subsection
+\setbeamercolor*{subsection in head/foot}{parent=palette primary} % Not used
+% Table of contents colors
+\setbeamercolor*{section in toc}{fg=gre-logoblue}
+\setbeamercolor*{subsection in toc}{fg=cs-logoblue}
 
 
 \mode

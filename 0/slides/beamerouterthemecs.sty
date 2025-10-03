@@ -20,14 +20,6 @@
 \colorlet{tertiary}{palette tertiary.bg}
 
 
-\setbeamercolor{frametitle}{parent=titlelike}
-\setbeamercolor*{author in head/foot}{parent=palette tertiary}
-\setbeamercolor*{title in head/foot}{parent=palette secondary}
-\setbeamercolor*{date in head/foot}{parent=palette primary}
-
-\setbeamercolor*{section in head/foot}{parent=palette tertiary}
-\setbeamercolor*{subsection in head/foot}{parent=palette primary}
-
 %\AtBeginDocument{
 %  {
 %    \usebeamerfont*{headline}
@@ -65,16 +57,20 @@
   \leavevmode\hbox{%
   \csname tikzexternaldisable\endcsname
   \begin{tikzpicture}[x=1mm,y=1mm]
-    \path[fill=cs-logoblue] (0,0) -- ++(0,3) 
+    % Background
+    \path[fill=cs-logoblue!50] (0,0) -- ++(0,4) 
       -- ++(\linewidth+\beamer@rightmargin+\beamer@leftmargin,0) 
-      -- ++(0,-3) -- cycle ;
-    \node[align=left] at (0.02\paperwidth,1.0) {\raisebox{0pt}[0pt][0pt]{\makebox[0pt][l]{%
+      -- ++(0,-4) -- cycle ;
+    % Presentation title
+    \node[align=left] at (0.02\paperwidth,1.5) {\raisebox{0pt}[0pt][0pt]{\makebox[0pt][l]{%
       \usebeamercolor[fg]{title in head/foot}\usebeamerfont{title in head/foot}\beamer@shorttitle
     }}} ;
-    \node[align=flush center] at (0.5\paperwidth,1.0) {\raisebox{0pt}[0pt][0pt]{\makebox[0pt]{%
-      \usebeamercolor[fg]{section in head/foot}\usebeamerfont{section in head/foot}\insertsectionhead
+    % Section and subsection
+    \node[align=center] at (0.5\paperwidth,1.5) {\raisebox{0pt}[0pt][0pt]{\makebox[0pt]{%
+      \usebeamercolor[fg]{section in head/foot}\usebeamerfont{section in head/foot}\insertsectionhead \hspace{1em} \textbf{\insertsubsectionhead}
     }}} ;
-    \node[align=right] at (0.94\paperwidth,1.0) {\raisebox{0pt}[0pt][0pt]{\makebox[0pt][r]{%
+    % Date and frame number
+    \node[align=right] at (0.96\paperwidth,1.5) {\raisebox{0pt}[0pt][0pt]{\makebox[0pt][r]{%
       \usebeamercolor[fg]{date in head/foot}\usebeamerfont{date in head/foot}%
       \insertshortdate{}\hspace{2em}\insertframenumber{} / \inserttotalframenumber
     }}} ;
@@ -134,13 +130,9 @@
 }
 
 
+% Disable navigation symbols
+\setbeamertemplate{navigation symbols}{}
 
-
-\defbeamertemplate*{sidebar right}{cs} {%
-  \vfill
-  \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
-  \vskip2pt%
-}
 
 \setbeamerfont{block title}{size={}}
 \setbeamerfont{institute}{size=\footnotesize}
