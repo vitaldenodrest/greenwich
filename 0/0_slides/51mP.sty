@@ -96,45 +96,39 @@
       rectangle
       (\paperwidth,-1);
 
+    % Logo CentraleSupélec
+    \node[inner sep=0pt, anchor=west] at (2,-6) {\pgfuseimage{logocs}};
+
+    % Logo Greenwich
+    \node[inner sep=0pt, anchor=east] at (\paperwidth-2,-6) {\pgfuseimage{logogre}};
+
   \end{tikzpicture}%
   }%
 }
 
-
-\usetikzlibrary{calc}
-\defbeamertemplate*{frametitle}{cs}{%
+\defbeamertemplate*{frametitle}{cs} {%
   \nointerlineskip
-  \vspace*{1 mm} % Gap between the headline and the title
-  \hspace*{-\beamer@leftmargin} % Compensate for the margin
+  \vspace*{-11mm}% annulation de l'espace vertical de l'en-tête
+  %\hspace*{-\beamer@leftmargin}%
   {\csname tikzexternaldisable\endcsname
   \noindent\begin{tikzpicture}[x=1mm,y=1mm]
-
-    % Logo gauche
-    \node[anchor=west, inner sep=0pt] (logocsnode) at (2,-7)
-      {\pgfuseimage{logocs}};
-
-    % Logo droit
-    \node[anchor=east, inner sep=0pt] (logogrenode) at (\paperwidth-2,-7)
-      {\pgfuseimage{logogre}};
-
-    % Position centrale entre les deux logos
-    \path let \p1 = (logocsnode.east), \p2 = (logogrenode.west) in
-      node[align=center, text width={veclen(\x2-\x1,\y2-\y1)}, anchor=center]
-        at ($ (logocsnode.east)!0.5!(logogrenode.west) $) {%
-          {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle}%
-          \ifx\insertframesubtitle\@empty
-          \else
-            \\[-0.3ex]{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}%
-          \fi
-        };
-
+    \path (0,0) rectangle (\paperwidth,-12mm) ;
+    \node at (70,-6) {\parbox{11cm}{\centering
+      \usebeamerfont{frametitle}%
+      \usebeamercolor[fg]{frametitle}%
+      \insertframetitle
+      \ifx\insertframesubtitle\@empty
+      \else
+        \usebeamerfont{framesubtitle}%
+        \\[-0.5ex]
+        \usebeamercolor[fg]{framesubtitle}%
+        \insertframesubtitle
+      \fi
+    }} ;
   \end{tikzpicture}%
   }%
   \hspace*{-\beamer@rightmargin}%
 }
-
-
-
 
 \defbeamertemplate*{sidebar right}{cs} {%
   \vfill

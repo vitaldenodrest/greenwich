@@ -1,5 +1,15 @@
 \documentclass{beamer}
 
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[
+	backend=biber,
+	style=verbose,
+	sorting=ynt
+]{biblatex}
+
+\addbibresource{references.bib}
+
 \usetheme{cs}
 
 \title{Using \textbf{beamercsxgre}}
@@ -21,11 +31,30 @@
   Very Famous University
 }
 
+
+% The next block of commands puts the table of contents at the beginning of each section and highlights the current section
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+
+
 \begin{document}
 
 \titlegraphic{\logocstext}
 
 \frame{\titlepage}
+
+% Insert the general toc
+\begin{frame}{Table of Contents}
+  \tableofcontents    
+\end{frame}
+
+\section{Commands}
 
 \begin{frame}[fragile]
   \frametitle{A beamer style for CS x Greenwich}
@@ -38,46 +67,100 @@
   \end{block}
   
   \begin{block}{Commands}
-	\begin{itemize}
-	  \item \verb|\logocs[<scale>]| \\
-	        displaying the CentraleSupélec logo without text\\
-			\centerline{\logocs}
-	
-	  \item \verb|\logocstext[<scale>]| \\
+
+	  \begin{itemize}
+
+      \item \verb|\logocstext[<scale>]| \\
             displaying the CentraleSupélec logo with text\\
 			\centerline{\logocstext}
+
+      \item The logo is scaled to fixed height
 
       \item \verb|\timestamp| \\
             displaying compilation date\\
             \centerline{\timestamp}
-	\end{itemize}
+        
+	  \end{itemize}
+
   \end{block}
   
 \end{frame}
 
+
 \begin{frame}[fragile]
-    \frametitle{The Greenwich logos}
+
+    \frametitle{A title...}
+    \framesubtitle{And a subtitle!}
     
-    \begin{block}{Commandes}
+    \begin{block}{Commands}
       \begin{itemize}
-        \item \verb|\logogre[<scale>]| \\
-              the textless University of Greenwich logo does not exist yet\\
       
         \item \verb|\logogretext[<scale>]| \\
               displaying the University of Greenwich's logo with text\\
               \centerline{\logogretext}
+        \item The logo is scaled to fixed height
       \end{itemize}
     \end{block}
     
 \end{frame}
 
+
+\section{Example Slides}
+
+
 \begin{frame}[plain]
-  \frametitle{The Greenwich logos}
   
   \begin{block}{Plain frame}
     This feels empty...
   \end{block}
   
+\end{frame}
+
+\begin{frame}{Example slide 0}
+  \begin{block}{Block}
+      Sample text in a normal block. \alert{Alerted text.}
+  \end{block}
+
+  \begin{alertblock}{Alert block}
+      Sample text in an alert block
+  \end{alertblock}    
+  
+   \begin{example}
+      Sample text for an example
+  \end{example}
+\end{frame}
+
+
+\begin{frame}{Example slide 1}
+  We compute the matrix of outputs as\footnote{\cite{vaswaniAttentionAllYou2023}}:
+  $$
+    \mathrm{Attention}(Q, K, V) = \mathrm{softmax}(\frac{QK^T}{\sqrt{d_k}})V
+  $$
+\end{frame}
+  
+\begin{frame}{Example slide 2}
+  \begin{table}
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Header 1} & \textbf{Header 2} & \textbf{Header 3} \\
+    \hline
+    Cell 1-1 & Cell 1-2 & Cell 1-3 \\
+    \hline
+    Cell 2-1 & Cell 2-2 & Cell 2-3 \\
+    \hline
+    Cell 3-1 & Cell 3-2 & Cell 3-3 \\
+    \hline
+    \end{tabular}
+    \caption{A Simple Table}
+  \end{table}
+\end{frame}
+  
+\section{Bibliography}
+  
+  \begin{frame}[t,allowframebreaks]
+  \frametitle{Bibliography}
+  \printbibliography
 \end{frame}
 
 \end{document}

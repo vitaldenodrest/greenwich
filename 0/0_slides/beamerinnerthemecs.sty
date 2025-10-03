@@ -4,12 +4,12 @@
 %% v1.0: initial release
 %%
 %% Options:
-%%   rounded (default=true): use rounded rectangles for blocks and titles
+%%   rounded (default=false): use rounded rectangles for blocks and titles
 %%   shadow  (default=true): draw a shadow for rounded rectangles (requires 'rounded')
 %%
 \ProvidesPackage{beamerinnerthemecs}[2015/10/21 v1.1 Beamer inner theme for CentraleSupelec]
 
-\DeclareOptionBeamer{rounded}[true]{%
+\DeclareOptionBeamer{rounded}[false]{%
   \def\beamer@themecs@rounded{#1}%
 }
 \DeclareOptionBeamer{shadow}[true]{%

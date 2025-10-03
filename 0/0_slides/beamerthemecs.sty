@@ -7,7 +7,6 @@
 %% v1.0: initial release
 %%
 %% Options:
-%%   Cecile (default=false): use orange "alert" elements
 %%   rounded (default=true): use rounded rectangles for blocks and titles
 %%   shadow  (default=true): draw a shadow for rounded rectangles (requires 'rounded')
 %%
@@ -15,39 +14,27 @@
 \RequirePackage{tikz}
 \RequirePackage{graphicx}
 
-\DeclareOptionBeamer{Cecile}[true]{%
-  \def\beamer@themecs@Cecile{#1}%
-}
-\DeclareOptionBeamer{rounded}[true]{%
+\DeclareOptionBeamer{rounded}[false]{%
   \def\beamer@themecs@rounded{#1}%
 }
-\DeclareOptionBeamer{shadow}[true]{%
+\DeclareOptionBeamer{shadow}[false]{%
   \def\beamer@themecs@shadow{#1}%
 }
-\ExecuteOptionsBeamer{Cecile=false}
 \ExecuteOptionsBeamer{rounded}
 \ExecuteOptionsBeamer{shadow}
 \ProcessOptionsBeamer
 
-\pgfdeclareimage[width=10mm]{logocs}{beamerthemecslogo}
-\pgfdeclareimage[width=10mm]{logogre}{beamerthemegrelogo}
+\pgfdeclareimage[height=8mm]{logocs}{beamerthemecslogo}
+\pgfdeclareimage[height=8mm]{logogre}{beamerthemegrelogo}
 
+%%TODO logo gre without text
 
-\newcommand{\logocs}[1][1.0]{%
-  \scalebox{#1}{%
-    \tikz{%
-      \clip (-0.212,-0.097) rectangle (0.173,0.258);
-      \node[inner sep=0pt, outer sep=0pt]{\pgfuseimage{logocs}};
-    }%
-  }%
-}
 \newcommand{\logocstext}[1][1.0]{%
   \scalebox{#1}{\pgfuseimage{logocs}}%
 }
 
 %%TODO logo gre without text
 
-%%FLAG
 \newcommand{\logogretext}[1][1.0]{%
   \scalebox{#1}{\pgfuseimage{logogre}}%
 }
@@ -78,7 +65,7 @@
 
 \mode<presentation>
 
-\usecolortheme[Cecile=\beamer@themecs@Cecile]{cs}
+\usecolortheme{cs}
 \useoutertheme{cs}
 \usefonttheme{cs}
 \useinnertheme[rounded=\beamer@themecs@rounded,shadow=\beamer@themecs@shadow]{cs}

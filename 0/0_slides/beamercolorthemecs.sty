@@ -10,21 +10,15 @@
 %%
 \ProvidesPackage{beamercolorthemecs}[2025/10/01 v1.1.gre Beamer theme for CentraleSupelec x University of Greenwich collaboration] 
 
-\DeclareOptionBeamer{Cecile}[true]{%
-  \def\beamer@themecs@Cecile{#1}%
-}
-\ExecuteOptionsBeamer{Cecile=false}
-\ProcessOptionsBeamer
-
 \mode<presentation>
+
+% Declaring colors
 
 % CS logo colors
 \definecolor{cs-logored}{RGB}{176,11,58}
 \definecolor{cs-logoblue}{RGB}{125,99,142} % Not that blue...
-
 % Greenwich logo colors
 \definecolor{gre-logoblue}{RGB}{1,3,57}
-
 % Legacy Frédéric Boulanger CS colors
 \definecolor{cs-lightred}{RGB}{222,137,148}
 \definecolor{cs-lightblue}{RGB}{196,181,206}
@@ -36,46 +30,46 @@
 %\definecolor{cs-blue}{cmyk}{0.91,0.54,0.15,0.02}
 %\definecolor{cs-lightblue}{cmyk}{0.85,0.45,0.09,0}
 \definecolor{cs-orange}{cmyk}{0,0.45,0.87,0}
+% Alert color
+\definecolor{alert-red}{RGB}{255, 0, 0}
 
-\setbeamercolor{structure}{fg=cs-logoblue}
+
+% Setting color palette
+
+% Shadow color
 \setbeamercolor{item projected}{bg=cs-darkgray}
-%%
-
-% Outer theme palette
-\setbeamercolor*{palette primary}{use=structure,fg=white,bg=structure.fg}
-\setbeamercolor*{palette secondary}{use=structure,fg=white,bg=cs-logoblue}
-\setbeamercolor*{palette tertiary}{use=structure,fg=white,bg=cs-lightblue}
+% Outer theme palette What is this for?
+\setbeamercolor*{palette primary}{fg=cs-logored}
+\setbeamercolor*{palette secondary}{fg=gre-logoblue}
+\setbeamercolor*{palette tertiary}{fg=cs-logoblue}
 \setbeamercolor*{palette quaternary}{fg=white,bg=black}
-
 % Sidebar palette
-\setbeamercolor*{sidebar}{use=structure,bg=structure.fg}
-\setbeamercolor*{palette sidebar primary}{use=structure,fg=cs-logoblue}
-\setbeamercolor*{palette sidebar secondary}{fg=white}
-\setbeamercolor*{palette sidebar tertiary}{use=structure,fg=cs-lightblue}
-\setbeamercolor*{palette sidebar quaternary}{fg=white}
-
-\def\beamer@themecs@tmp{true}
-\ifx\beamer@themecs@Cecile\beamer@themecs@tmp
-  \setbeamercolor*{titlelike}{parent=palette primary,fg=cs-lightblue}
-  \setbeamercolor{alert}{fg=cs-orange}
-  \setbeamercolor{alerted text}{fg=cs-orange}
-\else
-  \setbeamercolor*{titlelike}{parent=palette primary}
-  \setbeamercolor{alert}{fg=cs-logored}
-  \setbeamercolor{alerted text}{fg=cs-logored}
-  \setbeamercolor{example}{fg=cs-logoblue}
-  \setbeamercolor{example text}{fg=cs-logoblue}
-\fi
-
+%\setbeamercolor*{sidebar}{use=structure,bg=structure.fg}
+%\setbeamercolor*{palette sidebar primary}{use=structure,fg=cs-logoblue}
+%\setbeamercolor*{palette sidebar secondary}{fg=white}
+%\setbeamercolor*{palette sidebar tertiary}{use=structure,fg=cs-lightblue}
+%\setbeamercolor*{palette sidebar quaternary}{fg=white}
+% Title color
+\setbeamercolor*{titlelike}{use=palette primary, parent=palette primary}
+% Normal colors
+\setbeamercolor*{block title}{fg=white, bg=gre-logoblue}
+\setbeamercolor*{block body}{bg=gre-logoblue!10}
+% Alerted colors
+\setbeamercolor*{block title alerted}{fg=white, bg=alert-red}
+\setbeamercolor{alert}{use=palette primary, parent=palette primary}
+\setbeamercolor*{block body alerted}{bg=alert-red!10}
+\setbeamercolor{alerted text}{use=palette primary, parent=palette primary}
+% Example colors
+\setbeamercolor*{block title example}{fg=white, bg=cs-logoblue}
+\setbeamercolor*{block body example}{bg=cs-logoblue!10}
+\setbeamercolor{example}{use=palette tertiary, parent=palette tertiary}
+\setbeamercolor{example text}{use=palette tertiary, parent=palette tertiary}
+% What is this for?
 \setbeamercolor*{separation line}{}
 \setbeamercolor*{fine separation line}{}
-%%
-\setbeamercolor*{block body}{}
-\setbeamercolor*{block body alerted}{}
-\setbeamercolor*{block body example}{}
-\setbeamercolor*{block title}{parent=structure}
-\setbeamercolor*{block title alerted}{parent=alerted text}
-\setbeamercolor*{block title example}{parent=example text}
+% 
+
+
 \mode
 <all>
 

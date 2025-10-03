@@ -1,3 +1,4 @@
+# Conda env
 greenwich-conda
 
 # LaTeX pollution
@@ -11,6 +12,10 @@ greenwich-conda
 *.synctex.gz
 *.toc
 *.vrb
+*.bbl
+*.bcf
+*.blg
+*.run.xml
 
 # Mac shenanigans
 .DS_store
