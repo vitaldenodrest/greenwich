@@ -326,7 +326,7 @@
 \begin{frame}[fragile]
   \frametitle{Variational formulation (2)}
 
-  Note that $(H^1(0,1), \langle ., . \rangle_{L^2})$ is a Hilbert space. From the weak formulation:
+  From the weak formulation, we deduce:
   \begin{block}{Our sesquilinear form}
   \vspace{-0.6cm}
     \begin{align*}
@@ -351,17 +351,50 @@
 
 
 \begin{frame}[fragile]
-  \frametitle{Continuity of the sesquilinear form}
+  \frametitle{Continuity of the sesquilinear form (1)}
+
+  A nice property a sesquilinear form $a : V^2 \rightarrow \mathbb{C}$ can have is continuity:
+  \begin{block}{Continuity of a sesquilinear form}
+    \vspace{-0.6cm}
+      \begin{align*}
+        \exists C_a \in \mathbb{R}, ~ \forall u,v \in V, ~ \left| a(u,v) \right| \le C_a \lvert \lvert u \rvert \rvert_V \lvert \lvert v \rvert \rvert_V
+      \end{align*}
+      \vspace{-0.6cm}
+    \end{block}
+
+  Given our sesquilinear form, proving its continuity over the Hilbert space $(H^1(0,1), \langle .,. \rangle_{L^2})$
+  would require a constant $\lambda \in \mathbb{R}$
+  for which:
+  $$\forall u \in H^1(0,1), \lvert \lvert u' \rvert \rvert_{L^2} \le \lambda \lvert \lvert u \rvert \rvert_V$$
+  This is not the case,
+  and thus $a$ is unlikely to be continuous in this case.
+  However, continuity is posible with other Hilbert spaces.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Continuity of the sesquilinear form (2)}
+
+
 \end{frame}
 
 
 \begin{frame}[fragile]
   \frametitle{Continuity of the antilinear form}
+  A nice property an antilinear form $l : V \rightarrow \mathbb{C}$ can have is continuity:
+  \begin{block}{Continuity of an antilinear form}
+    \vspace{-0.6cm}
+      \begin{align*}
+        \exists C_l \in \mathbb{R}, ~ \forall v \in V, ~ \left| l(v) \right| \le C_l \lvert \lvert v \rvert \rvert_V
+      \end{align*}
+      \vspace{-0.6cm}
+    \end{block}
 \end{frame}
 
 
 \begin{frame}[fragile]
-  \frametitle{Coercivity of the bilinear form}
+  \frametitle{Coercivity of the sesquilinear form}
 \end{frame}
 
 
