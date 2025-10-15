@@ -167,7 +167,7 @@
 
   \begin{itemize}
     \item \( u \) is a 1D complex-valued function, at least two times derivable
-    \item \(f = 0 \), so this problem "sourceless"/homogeneous in the domain
+    \item \(f = 0 \), so this problem "sourceless"/homogeneous
     \item (2), assigning a value to the derivative, is called a Neumann "flux" boundary condition.
     \item (3), establishing a linear relationship between the value and the derivative, is called a Robin "impedance" boundary condition.
   \end{itemize}
@@ -277,7 +277,7 @@
   \frametitle{Weak formulation (2)}
 
   Integrating by parts, noting:\\
-  $\langle u, v \rangle_{L^2} = \int_{]0,1[}^{} u \overline{v}$ (scalar product for the energy norm)\\
+  $\langle u, v \rangle_{L^2} = \int_{]0,1[}^{} u \overline{v}$ (scalar product for the energy norm over our domain)\\
   and using the boundary conditions, we get:
   \begin{block}{Our weak formulation}
     \vspace{-0.6cm}
@@ -326,12 +326,11 @@
 \begin{frame}[fragile]
   \frametitle{Variational formulation (2)}
 
-  First, note that $(H^2(0,1), \langle ., . \rangle_{L^2})$ is a Hilbert space.\\
-  Based on the weak formulation, we deduce our forms:
+  Note that $(H^1(0,1), \langle ., . \rangle_{L^2})$ is a Hilbert space. From the weak formulation:
   \begin{block}{Our sesquilinear form}
   \vspace{-0.6cm}
     \begin{align*}
-      a : (H^2(0,1))^2 &\longrightarrow \mathbb{C} \\
+      a : (H^1(0,1))^2 &\longrightarrow \mathbb{C} \\
       (u, v) &\longmapsto k^2 \langle u, v \rangle_{L^2} - \langle u', v' \rangle_{L^2} +  ik \left[ u(1) \overline{v(1)} \right]
     \end{align*}
     \vspace{-0.6cm}
@@ -340,11 +339,13 @@
   \begin{alertblock}{Our antilinear form}
     \vspace{-0.6cm}
       \begin{align*}
-        l : H^2(0,1) &\longrightarrow \mathbb{C} \\
+        l : H^1(0,1) &\longrightarrow \mathbb{C} \\
         v &\longmapsto ik \left[ \overline{v(0)} \right]
       \end{align*}
       \vspace{-0.6cm}
     \end{alertblock}
+
+  We had to use $H^2$ spaces to obtain the weak formulation but our forms can be expressed in $H^1$ spaces (no second order derivatives).
 
 \end{frame}
 
@@ -384,7 +385,7 @@
       \item $\lvert \lvert u \rvert \rvert_{V} \leq \frac{1}{\alpha} \lvert \lvert l \rvert \rvert_{V'} = \frac{C_l}{\alpha}$ 
     \end{itemize}
   \end{alertblock}
-  Note that other versions of the theorem exist and some properties were only chosen as conventions.
+  Note that other versions of the theorem exist and that some properties were only chosen as conventions.
 
 \end{frame}
 
@@ -417,7 +418,7 @@
       \vspace{-0.6cm}
   \end{block}  
   Where $V_{1}^{h} \subset V_1$ and $V_{2}^{h} \subset V_2$ are finite.\\
-  Be reminded that in our case, $V_1 = V_2 = H^2(0,1)$, with the $L^2$ scalar product.\\
+  Be reminded that in our case, $V_1 = V_2 = H^1(0,1)$, with the $L^2$ scalar product.\\
   One might notice that the error is orthogonal to the subspaces: 
   $$
   a(u - u^h, v^h) = a(u, v^h) - a(u^h, v^h) = f(v^h) -f(v^h) = 0
