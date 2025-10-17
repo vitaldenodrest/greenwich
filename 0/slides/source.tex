@@ -2,11 +2,7 @@
 
 \usepackage{graphicx}
 \usepackage{listings}
-\usepackage[
-	backend=biber,
-	style=verbose,
-	sorting=ynt
-]{biblatex}
+\usepackage[backend=biber,style=verbose,sorting=ynt]{biblatex}
 
 \usepackage{derivative}
 \usepackage{subfig}
@@ -23,7 +19,7 @@
 
 % Document data for the title page
 \title{Galerkine methods for the 1D Helmholtz equation}
-\subtitle{An introduction to PDEs and finite element methods through the example of wave propagation}
+\subtitle{A deep dive into complex PDEs and FEM with a troublesome example}
 \author[V.~de Nodrest]{V.~de Nodrest\inst{1}}
 \institute[UFT/VFU]{
   \inst{1} CentraleSupélec, Université Paris Saclay
@@ -60,6 +56,11 @@
 \section{First}
 
 \subsection{First first}
+
+\begin{frame}
+  \frametitle{Motivation}
+\end{frame}
+
 
 
 \begin{frame}
@@ -263,7 +264,7 @@
   \vspace{0.6 cm}
   We will assume that $u$ is a solution and is in $H^2(]0,1[, \mathbb{C})$ (the $\mathbb{C}$ might be omitted in the next slides).\\
   \vspace{0.6 cm}
-  Then, for every $v$ in $H^2(0,1)$ we multiply the equation in our domain by $\overline{v}$ and integrate over the domain, yielding:
+  Then, for every $v$ in $H^1(0,1)$ we multiply the equation in our domain by $\overline{v}$ and integrate over the domain, yielding:
   $$
   \int_{]0,1[}^{} u'' \overline{v} + k^2 \int_{]0,1[}^{} u \overline{v} = 0
   $$
@@ -282,7 +283,7 @@
   \begin{block}{Our weak formulation}
     \vspace{-0.6cm}
     \begin{align*}
-      \forall v \in H^2(0,1), ~ k^2 \langle u, v \rangle_{L^2} - \langle u', v' \rangle_{L^2} +  ik \left[ u(1) \overline{v(1)} - \overline{v(0)} \right] &= 0
+      \forall v \in H^1(0,1), ~ k^2 \langle u, v \rangle_{L^2} - \langle u', v' \rangle_{L^2} +  ik \left[ u(1) \overline{v(1)} - \overline{v(0)} \right] &= 0
     \end{align*}
     \vspace{-0.6cm}
   \end{block}
@@ -345,7 +346,8 @@
       \vspace{-0.6cm}
     \end{alertblock}
 
-  We had to use $H^2$ spaces to obtain the weak formulation but our forms can be expressed in $H^1$ spaces (no second order derivatives).
+  We supposeed $u \in H^2$ to obtain the weak formulation but our forms can be expressed in $H^1$ spaces.
+  Still, a solution to the strong problem must be two-times derivable.
 
 \end{frame}
 
@@ -357,18 +359,31 @@
   \begin{block}{Continuity of a sesquilinear form}
     \vspace{-0.6cm}
       \begin{align*}
-        \exists C_a \in \mathbb{R}, ~ \forall u,v \in V, ~ \left| a(u,v) \right| \le C_a \lvert \lvert u \rvert \rvert_V \lvert \lvert v \rvert \rvert_V
+        \exists C_a \in \mathbb{R},
+        ~
+        \forall u,v \in V,
+        ~
+        \left| a(u,v) \right|
+        \le
+        C_a
+        \lvert \lvert u \rvert \rvert_V
+        \lvert \lvert v \rvert \rvert_V
       \end{align*}
       \vspace{-0.6cm}
     \end{block}
-
-  Given our sesquilinear form, proving its continuity over the Hilbert space $(H^1(0,1), \langle .,. \rangle_{L^2})$
-  would require a constant $\lambda \in \mathbb{R}$
-  for which:
-  $$\forall u \in H^1(0,1), \lvert \lvert u' \rvert \rvert_{L^2} \le \lambda \lvert \lvert u \rvert \rvert_V$$
-  This is not the case,
-  and thus $a$ is unlikely to be continuous in this case.
-  However, continuity is posible with other Hilbert spaces.
+  \vspace{0.6 cm}
+  Let $u,v \in H^1(0,1)$. Proving that $a$ is continuous starts with the triangle inequality over the complex module:
+  $$
+  \left| (u, v) \right|
+  \le
+  \left| k \right|^2
+  \left| \langle u, v \rangle_{L^2} \right|
+  +
+  \left| \langle u', v' \rangle_{L^2} \right|
+  +
+  \left| k \right|
+  \left| u(1) \overline{v(1)} \right|
+  $$
 
 \end{frame}
 
@@ -376,6 +391,114 @@
 \begin{frame}[fragile]
   \frametitle{Continuity of the sesquilinear form (2)}
 
+  The first step is applying the Cauchy-Schwartz inequality to the $L^2$ products:
+  $$
+  \left|(u, v)\right|
+  \le
+  \left|k\right|^2
+  \lvert \lvert u \rvert \rvert_{L^2}
+  \lvert \lvert v \rvert \rvert_{L^2}
+  +
+  \lvert \lvert u' \rvert \rvert_{L^2}
+  \lvert \lvert v' \rvert \rvert_{L^2}
+  +
+  \left| k \right| \left| u(1) \overline{v(1)} \right|
+  $$
+
+  Using the follwing $k$-dependent scalar product over $H^1(0,1)$ is convenient:
+  $$
+  \langle u,v \rangle_{1,k}
+  =
+  \langle u',v' \rangle_{L^2}
+  +
+  \left| k \right|^2
+  \langle u,v \rangle_{L^2}
+  ~ \text{thus} ~
+  \lvert \lvert u \rvert \rvert_{1,k}^2
+  =
+  \lvert \lvert u' \rvert \rvert_{L^2}^2 + \left| k \right|^2 \lvert \lvert u \rvert \rvert_{L^2}^2
+  $$
+
+
+
+  Now, consider two vectors of $\mathbb{R}^2$ whose usual scalar product appears above:
+  $$
+  \left(
+    \left| k \right| \lvert \lvert u \rvert \rvert_{L^2},
+    ~
+    \lvert \lvert u' \rvert \rvert_{L^2}
+  \right)
+  ~ \text{and} ~
+  \left(
+    \left| k \right| \lvert \lvert v \rvert \rvert_{L^2},
+    ~
+    \lvert \lvert v' \rvert \rvert_{L^2}
+  \right)
+  $$
+
+  Applying the Cauchy-Schwartz inequality to those $\mathbb{R}^2$ scalar products yields:
+  $$
+  \left|(u, v)\right|
+  \le
+  \sqrt{
+    \left| k \right|^2 \lvert \lvert u \rvert \rvert_{L^2}^2
+    +
+    \lvert \lvert u' \rvert \rvert_{L^2}^2
+  }
+  \sqrt{
+    \left| k \right|^2 \lvert \lvert v \rvert \rvert_{L^2}^2
+    +
+    \lvert \lvert v' \rvert \rvert_{L^2}^2
+  }
+  +
+  \left| k \right| \left| u(1) \overline{v(1)} \right|
+  $$
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Continuity of the sesquilinear form (3)}
+
+  After all of this, the $k$-dependant norm appears:
+  $$
+  \left|(u, v)\right|
+  \le
+  \lvert \lvert u \rvert \rvert_{1,k}^2
+  \lvert \lvert v \rvert \rvert_{1,k}^2
+  +
+  \left| k \right| \left| u(1) \overline{v(1)} \right|
+  $$
+
+  \vspace{0.6cm}
+
+  Now, the trace theorem helps us deal with $\left| u(1) \overline{v(1)} \right| = \left| u(1) \right| \left| v(1) \right|$:
+  $$
+  \left| u(1) \right| \le C_{\gamma} \lvert \lvert u \rvert \rvert_{H^1}
+  ~ \text{and} ~
+  \left| v(1) \right| \le C_{\gamma} \lvert \lvert v \rvert \rvert_{H^1}
+  $$
+
+  \vspace{0.6cm}
+
+  Where the usual $H^1(0,1)$ norm is
+  $
+  \lvert \lvert u \rvert \rvert_{H^1}^2
+  =
+  \lvert \lvert u' \rvert \rvert_{L^2}^2
+  +
+  \lvert \lvert u \rvert \rvert_{L^2}^2
+  $
+  and the trace constant $C_{\gamma}$ only depends on the domain ($C_{\gamma, 1}$ for our 1D domain of Lebesgue measure $1$).
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Continuity of the sesquilinear form (4)}
+
+  Finally, those trace results need to be linked to the $k$-dependant norm.
 
 \end{frame}
 
@@ -390,6 +513,21 @@
       \end{align*}
       \vspace{-0.6cm}
     \end{block}
+
+  Let $v \in H^1(0,1)$. The following expression need to be studied:
+  $$
+  \left| l(v) \right|
+  =
+  \left| k \right| \left| v(0) \right|
+  $$
+  
+  Once again, the trace theorem provides an interesting result for the $H^1$ norm:
+  $$
+  \left| v(0) \right|
+  \le
+  C_{\gamma} \lvert \lvert v \rvert \rvert_{H^1}
+  $$
+
 \end{frame}
 
 
