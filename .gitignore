@@ -3,3 +3,6 @@ greenwich-conda
 
 # Mac shenanigans
 .DS_Store
+
+# 
+.vscode
