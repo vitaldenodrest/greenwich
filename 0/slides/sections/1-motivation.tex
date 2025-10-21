@@ -1,0 +1,80 @@
+\subsection{The Helmholtz equation}
+
+\begin{frame}
+  \frametitle{The Helmholtz equation}
+
+  Our studies will tackle the Helmholtz equation:
+
+  \begin{block}{The homogeneous Helmholtz equation}
+    \vspace{-0.6cm}
+    \begin{align*}
+      \Delta u + k^2 u = 0
+    \end{align*}
+    \vspace{-0.6cm}
+  \end{block}
+
+  It is possible to account for sources using $f$,
+  a function with compact support:
+
+  \begin{alertblock}{The inhomogeneous Helmholtz equation}
+    \vspace{-0.6cm}
+    \begin{align*}
+      \Delta u + k^2 u = f
+    \end{align*}
+    \vspace{-0.6cm}
+  \end{alertblock}
+
+\end{frame}
+
+
+\subsection{Wave propagation}
+
+\begin{frame}
+  \frametitle{The wave equation}
+
+  The main interest for the Helmholtz equation arises from the study of wave propagation.\\
+  For media that are homogeneous, isotropic, linear et non dispersive:
+
+  \begin{block}{The wave equation}
+    \vspace{-0.6cm}
+    \begin{align*}
+      \pdv[2]{p}{t} &= c^2 \Delta p
+    \end{align*}
+    \vspace{-0.5cm}
+  \end{block}
+
+  $\Delta = \nabla^2$ is the Laplacian, a differential operator. \\
+  $p$ is a physical phenomenon propagated through one of the aforementioned media at a speed $c$. \\
+  It depends on both space $\mathbf{r}$ and time $t$.
+
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Variable seperation}
+
+  Assuming the solution is separable in time and space ($ p(\mathbf{r}, t) = u(\mathbf{r})T(t) $),
+  the wave equation can be rewritten as such:
+
+  \[
+    \frac{\Delta u}{u} = \frac{1}{c^2} \odv[2]{T}{t}
+  \]
+
+  The left-hand side only depends on space and the right-hand side only depends on time.
+  In order to be equal in any situation, both members need to be equal to the same constant.
+  This constant is set to $ - k^2 $ for convenience:
+  \begin{align*}
+    \frac{\Delta u}{u} &= - k^2 \\
+    \frac{1}{c^2 T} \odv[2]{T}{t} &= - k^2
+  \end{align*}
+
+  The first equation, relative to space, is the homogeneous medium Helmholtz equation.
+
+\end{frame}
+
+
+\subsection{Fourier transform}
+
+
+\subsection{Exotic equations}

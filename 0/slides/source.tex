@@ -11,6 +11,7 @@
 \pgfplotsset{compat=1.18}
 \usepackage{amsmath}
 \usepackage{stmaryrd}
+\usepackage{subfiles} % Best loaded last in the preamble
 
 \addbibresource{references.bib}
 
@@ -53,207 +54,11 @@
   \tableofcontents    
 \end{frame}
 
-\section{First}
+\section{Motivation}
+\subfile{sections/1-motivation.tex}
 
-\subsection{First first}
-
-\begin{frame}
-  \frametitle{Motivation}
-\end{frame}
-
-
-
-\begin{frame}
-  \frametitle{The wave equation}
-
-  Many physical problems invole the wave equation, which describes wave propagation in media that are homogeneous, isotropic, linear et non dispersive:
-
-  \begin{block}{The wave equation}
-    \vspace{-0.6cm}
-    \begin{align*}
-      \pdv[2]{p}{t} &= c^2 \Delta p
-    \end{align*}
-    \vspace{-0.5cm}
-  \end{block}
-
-  $\Delta = \nabla^2$ is the Laplacian, a differential operator. \\
-  $p$ is a physical phenomenon propagated through one of the aforementioned media at a speed $c$. \\
-  It depends on both space $\mathbf{r}$ and time $t$.
-
-
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{Variable seperation}
-
-  Assuming the solution is separable in time and space ($ p(\mathbf{r}, t) = u(\mathbf{r})T(t) $),
-  the wave equation can be rewritten as such:
-
-  \[
-    \frac{\Delta u}{u} = \frac{1}{c^2} \odv[2]{T}{t}
-  \]
-
-  The left-hand side only depends on space and the right-hand side only depends on time.
-  In order to be equal in any situation, both members need to be equal to the same constant.
-  This constant is set to $ - k^2 $ for convenience:
-  \begin{align*}
-    \frac{\Delta u}{u} &= - k^2 \\
-    \frac{1}{c^2 T} \odv[2]{T}{t} &= - k^2
-  \end{align*}
-
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{The Helmholtz equation}
-
-  Rearranging the first equation (space-dependent) yields:
-
-  \begin{block}{The homogeneous Helmholtz equation}
-    \vspace{-0.6cm}
-    \begin{align*}
-      \Delta u + k^2 u = 0
-    \end{align*}
-    \vspace{-0.6cm}
-  \end{block}
-
-  It is possible to account for sources using $f$,
-  a function with compact support, thus yielding:
-
-  \begin{alertblock}{The inhomogeneous Helmholtz equation}
-    \vspace{-0.6cm}
-    \begin{align*}
-      \Delta u + k^2 u = f
-    \end{align*}
-    \vspace{-0.6cm}
-  \end{alertblock}
-
-\end{frame}
-
-
-
-\begin{frame}[fragile]
-  \frametitle{Our 1D Helmholtz problem}
-
-  We consider the following problem,
-  a simple yet telling example of a situation involving the Helmholtz equation:
-  \vspace{0.6 cm}
-  \begin{alertblock}{Our 1D Helmholtz problem}
-    \vspace{-0.6cm}
-    \begin{align}
-      u'' + k^2 u &= 0 ~ ~ \text{in} ~ ~ ]0, 1[ \\
-      u'(0) &= i k \\
-      u'(1) &= i k u(1)
-    \end{align}
-    \vspace{-0.6cm}
-  \end{alertblock}
-
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{About our problem}
-
-  \begin{block}{Our 1D Helmholtz problem}
-    \vspace{-0.6cm}
-    \begin{align}
-      \setcounter{equation}{0}
-      u'' + k^2 u &= 0 ~ ~ \text{in} ~ ~ ]0, 1[ \\
-      u'(0) &= i k \\
-      u'(1) &= i k u(1)
-    \end{align}
-    \vspace{-0.6cm}
-  \end{block}
-
-  \begin{itemize}
-    \item \( u \) is a 1D complex-valued function, at least two times derivable
-    \item \(f = 0 \), so this problem "sourceless"/homogeneous
-    \item (2), assigning a value to the derivative, is called a Neumann "flux" boundary condition.
-    \item (3), establishing a linear relationship between the value and the derivative, is called a Robin "impedance" boundary condition.
-  \end{itemize}
-
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{The exact solution}
-
-  The problem can be solved with linear PDE tools, yielding an unique solution:
-
-  \begin{block}{The "Euler wave" exact solution}
-    \vspace{-0.6cm}
-    \begin{align*}
-      \forall x \in [0, 1], ~ u(x) &= e^{ikx}
-    \end{align*}
-    \vspace{-0.6cm}
-  \end{block}
-
-  \begin{figure}
-    \centering
-    \subfloat[3D complex plot\label{fig:1a}]{
-      \begin{tikzpicture}[scale=0.37]
-        \begin{axis}[
-            view={25}{15},
-            xlabel={\huge $x$},
-            ylabel={\huge Re},
-            zlabel={\huge Im},
-        ]
-          \addplot3+ [
-              color=violet,
-              domain=0:1,        % Changed: x from 0 to 1
-              samples=100,       % Changed: more samples for smoothness
-              samples y=1,
-              mark=none,         % Added: removes the beads/markers
-          ] (
-              {x},
-              {cos(deg(10*x))},  % Changed: x instead of \x, deg() for radians
-              {sin(deg(10*x))}   % Changed: x instead of \x, deg() for radians
-          );
-      \end{axis}
-    \end{tikzpicture}
-    }
-    \qquad
-    \subfloat[Real part\label{fig:1b}]{
-      \begin{tikzpicture}[scale=0.37]
-        \begin{axis}[
-          xlabel={\huge $x$},
-          ylabel={\huge Re},
-        ]
-          \addplot [
-            color=red,
-            domain=0:1,
-            samples=100,
-            mark=none,
-          ] {
-            cos(deg(10*x))
-          };
-        \end{axis}
-      \end{tikzpicture}
-    }
-    \qquad
-    \subfloat[Imaginary part\label{fig:1c}]{
-      \begin{tikzpicture}[scale=0.37]
-        \begin{axis}[
-          xlabel={\huge $x$},
-          ylabel={\huge Im}
-        ]
-          \addplot[
-            color=blue,
-            domain=0:1,
-            samples=100,
-            mark=none,
-          ]{
-            sin(deg(10*x))
-          };
-        \end{axis}
-      \end{tikzpicture}
-    }
-  \label{fig:1}
-  \caption{Exact solution with $k = 10$}
-  \end{figure}
-
-\end{frame}
+\section{Our problem}
+\subfile{sections/2-problem.tex}
 
 
 \begin{frame}[fragile]
@@ -726,6 +531,16 @@
   For our 
 
 \end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Filling in the matrices (1)}
+
+  As mentioned before, the matrices $A$ and $L$ need to be computed before the matrix form of the Galerkin equation can be solved.\\
+  Depending on the mesh 
+
+\end{frame}
+
 
 
 
