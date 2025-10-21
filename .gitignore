@@ -18,4 +18,4 @@ greenwich-conda
 *.run.xml
 
 # Mac shenanigans
-.DS_store
+.DS_Store
