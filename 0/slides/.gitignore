@@ -6,11 +6,11 @@
 *.nav
 *.out
 *.snm
-*.synctex.gz
+*.synctex*
 *.toc
 *.vrb
-*.bbl
-*.bcf
+*.bbl*
+*.bcf*
 *.blg
 *.run.xml
 
