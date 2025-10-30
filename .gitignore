@@ -6,3 +6,6 @@ greenwich-conda
 
 # 
 .vscode
+
+# Training data
+*.dat
