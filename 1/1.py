@@ -48,7 +48,7 @@ net = dde.nn.FNN([1] + [10] * 1 + [1], # structure
 model = dde.Model(data, net)
 
 # Deepxde considers losses in this order:
-# optimi
+# 
 model.compile("adam", # Optimization algorithm
               lr=0.001, # Learning rate
               loss="MSE", # A list could be used for 
