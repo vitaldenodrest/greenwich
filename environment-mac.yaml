@@ -13,3 +13,4 @@ dependencies:
     - hydra-core==1.3
     - pinnstorch
   - lightning
+  - deepxde
