@@ -49,7 +49,7 @@ def u(x):
     return torch.cos(k*x)
 ## Initial sampling points
 ### Training
-X_train_pde = torch.rand(size=(10,1)) # RANDOM SAMPLING
+X_train_pde = torch.linspace(0, 1, 10 + 2, dtype=torch.float32)[1: -1].unsqueeze_(1)
 print(X_train_pde)
 X_train_0 = torch.tensor([0], dtype=torch.float32).unsqueeze_(1) # left boundary
 X_train_1 = torch.tensor([1], dtype=torch.float32).unsqueeze_(1) # right boundary
