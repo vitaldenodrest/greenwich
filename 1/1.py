@@ -44,10 +44,11 @@ bc_r = dde.icbc.NeumannBC(geom, lambda X: -k * np.sin(k), boundary_r)
 data = dde.data.PDE(geom, # Geometry
                     pde=pde_residual, # PDE defined by its residue
                     bcs=[bc_l, bc_r], # Boundary conditions
-                    num_domain=12, # Number of training points in the domain
+                    num_domain=10, # Number of training points in the domain
                     num_boundary=2, # Number of training points on the boundaries
                     solution=exact, # Solution
                     num_test=1000, # Number of test points in the domain
+                    train_distribution="uniform",
                     )
 
 
@@ -62,11 +63,11 @@ model = dde.Model(data, net)
 # Deepxde considers losses in this order:
 # 
 model.compile("adam", # Optimization algorithm
-              lr=0.01, # Learning rate
+              lr=0.001, # Learning rate
               loss="MSE", # A list could be used for 
               metrics=["l2 relative error"],
               )
-losshistory, train_state = model.train(iterations=1000, # Epochs
+losshistory, train_state = model.train(iterations=5000, # Epochs
                                        display_every=1, # How often do you display results
                                        #callbacks=[checkpoint], # Custom callbacks
                                        )
