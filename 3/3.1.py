@@ -99,9 +99,11 @@ net = dde.nn.DeepONetCartesianProd(
 
 ## Model definition and training
 model = dde.Model(pde_operator_data, net)
-dde.optimizers.set_LBFGS_options(maxiter=1000)
-model.compile("L-BFGS")
-model.train()
+model.compile("adam",
+              lr=0.001,
+              loss="MSE")
+model.train(display_every=100,
+            iterations=1000)
 
 ## Choose random realizations and plot them
 n = 3
