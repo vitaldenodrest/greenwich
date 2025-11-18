@@ -116,7 +116,7 @@ y = model.predict((fx, x))
 # Setup figure
 fig = plt.figure(figsize=(7, 8))
 plt.subplot(2, 1, 1)
-plt.title("Poisson equation: Source term f(x) and solution u(x)")
+plt.title("Helmholtz equation: Source term f(x) and solution u(x)")
 plt.ylabel("f(x)")
 z = np.zeros_like(x)
 plt.plot(x, z, "k-", alpha=0.1)
