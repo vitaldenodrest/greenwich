@@ -2,13 +2,14 @@ import sympy as sp
 
 # 1D
 # Continuous piecewise polynomials of order 1
-"""
+drawing = f"""
     .____.________.
     x-1  x0      x1
     |____|________|
       hx-    hx+
 
 """
+print(drawing)
 
 # !!! Indicates a hypothesis (should be studied and considered)
 
