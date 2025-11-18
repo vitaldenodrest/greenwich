@@ -1,6 +1,6 @@
 # greenwich
 
-Messy repo for my research internship at Greenwich university.
+Messy repo for my research internship at University Of Greenwich university.
 
 ## Installation
 
