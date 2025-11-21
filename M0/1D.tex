@@ -1,13 +1,14 @@
 \documentclass{article}
 
-\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
 
 \begin{document}
 
 \paragraph{Exact solution.}
 We consider the sourceless Helmholtz equation in homogeneous media
 $
-\Delta \phi + k^2 \phi = 0
+\Delta u + k^2 u = 0
 $
 in 
 $
@@ -15,14 +16,106 @@ $
 $.
 The solutions are defined by
 $
-\phi(x) = c e^{ikx}
+u(x) = c e^{ikx}
 $
 with any constant $c$.
 
 \paragraph{Numerical solution}
-The infinite domain is discretized 
+%Using linear interpolation yields a linear system $A U^h = 0$ where
 
-Without loss of generality
+We discretize the 1D domain and consider, without loss of generality, the stencil formed by an interior node $0$ and its neighbours $-1$ et $+1$.
+The "dispersion relation" linear equation between $U^h_0$ and the neighboring nodal values is:
+\begin{equation}
+A_{0, -1}U_{-1} + A_{0, 0}U_{0} + A_{0, +1}U_{+1} = 0 \label{eq:stenicl}
+\end{equation}
+
+
+
+\begin{align*}
+    A_{0, -1} &= \frac{h_{x}^{-} k^{2}}{6} + \frac{1}{h_{x}^{-}} \\
+    A_{0, 0} &= \frac{h_{x}^{-} k^{2}}{3} + \frac{h_{x}^{+} k^{2}}{3} - \frac{1}{h_{x}^{-}} - \frac{1}{h_{x}^{+}} \\
+    A_{0, 1} &= \frac{h_{x}^{+} k^{2}}{6} + \frac{1}{h_{x}^{+}}
+\end{align*}
+
+\section{Dispersion analysis}
+We assume that the numerical solution can be defined by $u^h(x) = c e^{ik^{h}x}$ where $k^h$ is the numerical wavenumber.
+$h_{x}^{-} = \alpha^{-} h_x$ and $h_{x}^{+} = \alpha^{+} h_x$
+
+\paragraph{Theorem 1.1}
+For the 1D Gakerine method stencil with linear finite elements of varying sizes, the numerical wave number $k^h$ is linked to the exact wavenumber when $k^h h \to 0$ and $k h \to 0$:
+\begin{equation}
+    k^h \approx k - \frac{1}{24} \left({\alpha^{-}}^2 + {\alpha^{+}}^2 - \alpha^{-} \alpha^{+}\right) k^3 h_x^2
+\end{equation}
+
+\textit{Proof.}
+Substituting the nodel numerical values in the dispertion relation \eqref{eq:stenicl} yields a relation between $k$ and $k^h$ that we can solve for $k$:
+\begin{equation}
+    \label{eq:k2}
+    k^2 = \frac{6}{h_{x}^{+}h_{x}^{-}} ~
+    \frac{h_{x}^{-} \left(1 - \cos{\left(h_{x}^{+} k^{h} \right)}  \right) + h_{x}^{+} \left(1 - \cos{\left(h_{x}^{-} k^{h} \right)}  \right)}
+    {h_{x}^{-} \left( 2 + \cos{\left(h_{x}^{-} k^{h} \right)} \right) + h_{x}^{+} \left( 2 + \cos{\left(h_{x}^{+} k^{h} \right)} \right)}
+\end{equation}
+However, it cannot be written as $k^h = f(k)$ because of the cosines of varying wavenumbers.
+We need to use a Taylor expansion on the cosines when $h_x k^h \to 0$:
+\begin{equation}
+    \cos{\left(\alpha^{\pm} h_{x} k^{h} \right)} = 1 - \frac{{\alpha^{\pm}}^2}{2} (h_x k^k)^2 + \frac{{\alpha^{\pm}}^4}{24} (h_x k^h)^4 + O((h_x k^h)^6)
+\end{equation}
+Substituting this expansion in \eqref{eq:k2} and simplifying by common factors yields:
+\small
+\begin{equation*}
+    k^2 h_x^2 =
+    \frac{
+        6 \left(
+        12\left(\alpha^{-} + \alpha^{+}\right) (h_x k^{h})^2
+        -
+        \left({\alpha^{-}}^3 + {\alpha^{+}}^3\right) (h_x k^{h})^4
+        \right)
+        + O((h_x k^{h})^6) % A vérifier
+    }
+    {
+        72 \left(\alpha^{-} + \alpha^{+}\right)
+        -
+        12\left({\alpha^{-}}^3 + {\alpha^{+}}^3 \right) (h_x k^{h})^2
+        + 
+        \left({\alpha^{-}}^5 + {\alpha^{+}}^5 \right) (h_x k^{h})^4
+        + + O((h_x k^{h})^6) % A vérifier
+    }
+\end{equation*} % !!!
+\normalsize
+This ratio of polynomials is inconvenient. Let's rewrite $(k h_x)^2$:
+\begin{align}
+    &(k h_x)^2 = X \frac{1}{1-Y} \\
+    &X = (h_x k^{h})^2 + \chi (h_x k^{h})^4 + O((h_x k^{h})^6) \\ \label{eq:X}
+    &Y = \gamma_1 (h_x k^{h})^2 + \gamma_2 (h_x k^{h})^4 + O((h_x k^{h})^6) \\
+    &\chi= - \frac{1}{12} \left({\alpha^{-}}^2 + {\alpha^{+}}^2 - \alpha^{-} \alpha^{+}\right) \\
+    &\gamma_1 = \frac{1}{6} \left({\alpha^{-}}^2 + {\alpha^{+}}^2 - \alpha^{-} \alpha^{+}\right)  =-2 \chi \\
+    &\gamma_2 = - \frac{1}{72} \frac{{\alpha^{-}}^5 + {\alpha^{+}}^5}{\alpha^{-} + \alpha^{+}}
+\end{align}
+$Y \to 0$ as $h_x k^{h} \to 0$, thus yielding the following Taylor expansion:
+\begin{equation}
+    \label{eq:YY}
+    \frac{1}{1-Y} = 1 + \gamma_1 (h_x k^{h})^2 + (\gamma_1^2 + \gamma_2) (h_x k^{h})^4 + O((h_x k^{h})^6)
+\end{equation}
+A polynomial expression of $(k h_x)^2$ is now available as a product of \eqref{eq:X} and \eqref{eq:YY}:
+\begin{equation}
+    (k h_x)^2 = (h_x k^{h})^2 - \chi (h_x k^{h})^4 + O((h_x k^{h})^6) \label{eq:khx2}
+\end{equation}
+We need an expansion of $(h_xk^h)^2$ as powers of $(kh)^2$. This is possible thanks to a series reversion (cite). The first step is writing the Taylor expansion we are trying to achieve:
+\begin{equation}
+    (k^h h_x)^2 \approx \alpha_1 ((k h_x)^{2})^1 + \alpha_2 ((k h_x)^{2})^2 \label{eq:cible} % Precision ?
+\end{equation}
+Then, substituting \eqref{eq:cible} into \eqref{eq:khx2} allows us to determine the right coefficients for the expansion:
+\begin{equation}
+    (k^h h_x)^2 \approx (k h_x)^2 + \chi (k h_x)^4 \label{eq:square}
+\end{equation}
+The last step is extracting the Taylor series of \eqref{eq:square}, which is made under the hypothesis that $k^h h_x > 0$:
+\begin{equation}
+    k^h h_x \approx k h_x + \frac{1}{2} \chi (k h_x)^3
+\end{equation}
+This concludes the proof. $\square$
+
+
+\section{Optimal GLS parameter}
 
 
 
