@@ -14,3 +14,6 @@ dependencies:
     - pinnstorch
   - lightning
   - deepxde
+  - ipython
+  - ipykernel
+  - ipympl
