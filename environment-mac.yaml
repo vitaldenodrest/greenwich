@@ -12,6 +12,7 @@ dependencies:
     - sympy
     - hydra-core==1.3
     - pinnstorch
+    - nbstripout
   - lightning
   - deepxde
   - ipython

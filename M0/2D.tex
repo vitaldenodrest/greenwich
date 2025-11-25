@@ -9,13 +9,49 @@
     \sum_{i,j \in {-1, 0, 1}} A_{G, 0, 0}^{i,j} U_{i, j}^h = 0
 \end{equation}
 
-Four corner nodes
+Setting $2 h_{\xi} = h_{\xi}^{-} + h_{\xi}^{+}$ with $\xi$ being $x$ or $y$.
+
+The values of the nonzero entries are the following:
+
+Four corner nodes ($i, j \in \{ -, + \}$):
+\begin{equation*}
+    A_{G, 0, 0}^{i, j} = \frac{k^2 h_{x}^i h_{y}^j}{36} + \frac{h_{x}^i}{6 h_{y}^j} + \frac{h_{y}^j}{6 h_{x}^i}
+\end{equation*}
+
+Four side nodes:
 \begin{align*}
-    &A_{G, 0, 0}^{-1, -1} =  \\
-    &A_{G, 0, 0}^{-1, -1} = t \\
-    &A_{G, 0, 0}^{-1, -1} = t \\
-    &A_{G, 0, 0}^{-1, -1} = t \\
+    &A_{G, 0, 0}^{\pm, 0} = \frac{k^{2} h_{x}^{\pm} h_{y} }{9} + \frac{2 h_{y}}{3 h_{x}^{\pm}} - \frac{h_x^{\pm}}{3} \frac{h_{y}}{h_{y}^{-} h_{y}^{+}} \\
+    &A_{G, 0, 0}^{0, \pm} = \frac{k^{2} h_{x} h_{y}^{\pm}}{9} + \frac{2 h_{x}}{3 h_{y}^{\pm}} - \frac{h_y^{\pm}}{3} \frac{h_{x}}{h_{x}^{-} h_{x}^{+}}
 \end{align*}
+
+Center node:
+\begin{equation*}
+    A_{G, 0, 0}^{0, 0} =
+    \frac{4 k^{2} h_{x} h_{y} }{9}
+    - \frac{4h_{x}}{3} \frac{h_{y}}{h_{y}^{-}h_{y}^{+}}
+    - \frac{4h_{y}}{3} \frac{h_{x}}{h_{x}^{-}h_{x}^{+}}
+\end{equation*}
+
+
+Setting $\alpha_{\xi}^{\pm} h_{\xi} = h_{\xi}^{\pm}$ with $\xi$ being $x$ or $y$.
+
+Four side nodes:
+\begin{align*}
+    &A_{G, 0, 0}^{\pm, 0} = \frac{k^{2} h_{x}^{\pm} h_{y} }{9}
+    + \frac{2 h_{y}}{3 h_{x}^{\pm}}
+    - \frac{h_x^{\pm}}{3 \alpha_{y}^{-} \alpha_{y}^{+} h_{y}} \\
+    &A_{G, 0, 0}^{0, \pm} = \frac{k^{2} h_{x} h_{y}^{\pm}}{9} + \frac{2 h_{x}}{3 h_{y}^{\pm}} - \frac{h_y^{\pm}}{3 \alpha_{x}^{-} \alpha_{x}^{+} h_{x}}
+\end{align*}
+
+Center node:
+\begin{equation*}
+    A_{G, 0, 0}^{0, 0} =
+    \frac{4 k^{2} h_{x} h_{y} }{9}
+    - \frac{4h_{x}}{3 \alpha_{y}^{-} \alpha_{y}^{+} h_{y}}
+    - \frac{4h_{y}}{3 \alpha_{x}^{-} \alpha_{x}^{+} h_{x}}
+\end{equation*}
+
+
 
 
 \end{document}
