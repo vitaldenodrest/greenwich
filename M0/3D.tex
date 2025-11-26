@@ -1,0 +1,40 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+
+\begin{document}
+
+
+
+
+\begin{equation}
+    \sum_{i,j,l \in \{-1, 0, 1\}} A_{G, 0, 0}^{i,j,l} U_{i,j:l}^h = 0
+\end{equation}
+
+The eight entries corresponding to the corner nodes
+\begin{equation}
+    A_{G, 0,0,0}^{i, j, l}
+    =
+    - \frac{
+        h_\mathbf{{x}}^i h_\mathbf{{y}}^j
+        }
+        {36 h_\mathbf{{z}}^l
+        }
+    - \frac{
+        h_\mathbf{{z}}^l h_\mathbf{{x}}^i
+        }
+        {36 h_\mathbf{{y}}^j}
+    - \frac{
+        h_\mathbf{{z}}^l h_\mathbf{{y}}^j
+        }
+        {36 h_\mathbf{{x}}^i}
+    - \frac{
+        h_\mathbf{{x}}^i h_\mathbf{{y}}^j h_\mathbf{{z}}^l k^{2}
+        }
+        {216}
+\end{equation}
+
+\end{document}
