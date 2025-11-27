@@ -76,7 +76,20 @@ the exact solutions are $\forall x \in \mathbb{R}, ~ u(x) = C e^{i(k_x x + k_y y
 With $k^2 = k_x^2 + k_y^2$
 Our studies will revolve around this case.
 
+\subsection{Dispersion analysis}
 
+\subsubsection{Numerical resolution}
+\label{GalerkineNumRes}
+Using bilinear interpolation with nodal shape functions $N_{(i,j)}$
+that respect the partition of unity and Kronecker delta properties
+yields the linear system
+$AU^h=0$,
+where $U^h$ is a the vector of nodal values and $A$ is the impedence matrix. \\
+When using our Galerkine formulation, the matrix is
+$A_{G,(i,j)(l,m)} = \sum_{e \in E} K_{(i,j)(l,m)}^e - k^2 M_{(i,j)(l,m)}^e$
+where $E$ is the set of elements whose boundary contain both nodes $(i,j)$ and $(l,m)$,
+and $K_{(i,j)(l,m)}^e$ and $M_{(i,j)(l,m)}^e$
+are respectively stiffness and masse terms assembled using shape functions $(i,j)$ and $(l,m)$ over the element $e$.
 
 \begin{equation}
     \sum_{i,j \in {-1, 0, 1}} A_{G, 0, 0}^{i,j} U_{i, j}^h = 0
