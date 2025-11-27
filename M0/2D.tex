@@ -21,7 +21,7 @@
 
 \subsection{Strong formulation}
 We will work on a two-dimensional Helmholtz problem.
-Let $\Omega \subset \mathbb{R^2}$ be an open bounded region whose border $\delta \Omega$ is sufficiently smooth.
+Let $\Omega \subset \mathbb{R}^2$ be an open bounded region whose border $\delta \Omega$ is sufficiently smooth.
 Our strong formulation is the following:
 $$
 \text{Find } u \text{ such that: }
@@ -72,8 +72,11 @@ causing numerical wavenumbers to lose accuracy with the physical wavenumber incr
 
 \paragraph{Exact solutions}
 When considering the sourceless ($f=0$) and free-space version of our problem,
-the exact solutions are $\forall x \in \mathbb{R}, ~ u(x) = C e^{ikx}$.
+the exact solutions are $\forall x \in \mathbb{R}, ~ u(x) = C e^{i(k_x x + k_y y)}$.
+With $k^2 = k_x^2 + k_y^2$
 Our studies will revolve around this case.
+
+
 
 \begin{equation}
     \sum_{i,j \in {-1, 0, 1}} A_{G, 0, 0}^{i,j} U_{i, j}^h = 0
