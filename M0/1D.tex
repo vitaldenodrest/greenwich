@@ -5,28 +5,79 @@
 
 \begin{document}
 
-\paragraph{Exact solution.}
-We consider the sourceless Helmholtz equation in homogeneous media
-$
-\Delta u + k^2 u = 0
-$
-in 
-$
-\mathbb{R}
-$.
-The solutions are defined by
-$
-u(x) = c e^{ikx}
-$
-with any constant $c$.
+\paragraph{Strong formulation}
+We will work on a one-dimensional Helmholtz problem.
+Let $\Omega \subset \mathbb{R}$ be an open bounded region whose border $\delta \Omega$ is sufficiently smooth.
+Our strong formulation is the following:
+$$
+\text{Find } u \text{ such that: }
+\begin{cases}
+\Delta u + k^2 u = -f & \text{in } \Omega \\
+u = 0 & \text{on } \partial \Omega
+\end{cases}
+$$
+$\Delta = \nabla^2$ is the Laplace operator, $u$ could be the unknown acoustic pressure field, $k$ is the wavenumber and $f$ is a source term.
+In general, $u$ and $k$ can be complex-valued. However, this study will be conducted on real-valued cases, with $k>0$.
 
-\paragraph{Numerical solution}
-%Using linear interpolation yields a linear system $A U^h = 0$ where
+\paragraph{Galerkin formulation}
+The usual Galerkin formulation for our problem is the following:
+$$
+\text{Find } u^h \in \mathcal{V}^h 
+\text{ such that }
+\forall v^h \in \mathcal{V}^h , ~
+a_G(u^h, v^h) = \left\langle f, v^h  \right\rangle_{L^2(\Omega)}
+$$
+Where $\mathcal{V}^h \subset H_0^1(\Omega)$ is finite-dimensional,
+$\left\langle u, v  \right\rangle_{L^2(\Omega)}$ is the $L^2(\Omega)$ scalar product,
+and $a_G$ is the following sesquilinear form:
+\begin{align*}
+a_G: H_0^1(\Omega)^2 &\to \mathbb{C} \\
+(u, v) &\mapsto \left\langle \nabla u, \nabla v  \right\rangle_{L^2(\Omega)} - k^2 \left\langle u, v \right\rangle_{L^2(\Omega)}
+\end{align*}
+We will use a mesh method to build $\mathcal{V}^h$, partitioning $\Omega$ in mutually exclusive elements.
 
-We discretize the 1D domain and consider, without loss of generality, the stencil formed by an interior node $0$ and its neighbours $-1$ et $+1$.
+\paragraph{GLS}
+The Galerkin/least-squares formulation uses the previous formulation and adds other terms whose purpose is to minimize the square of the residue over the element interiors $\tilde{\Omega}$.
+Their contribution is weighted by a parameter $\tau$ :
+$$
+\text{Find } u^h \in \mathcal{V}^h 
+\text{, }
+\forall v^h \in \mathcal{V}^h , ~
+a_{GLS}(u^h, v^h) = \left\langle f, v^h \right\rangle_{L^2(\Omega)} + \left\langle \tau f, \mathcal{L}v^h \right\rangle_{L^2(\tilde{\Omega})}
+$$
+Where $\mathcal{L.} = \Delta. + k^2.$ is the Helmholtz operator, and $a_{GLS}$ is the follwing sesquilinear form:
+\begin{align*}
+a_{GLS}: H_0^1(\Omega)^2 &\to \mathbb{C} \\
+(u, v) &\mapsto a_G(u,v) + \left\langle \tau \mathcal{L}u, \mathcal{L}v \right\rangle_{L^2(\tilde{\Omega})}
+\end{align*}
+
+\section{Dispersion analysis}
+The Helmholtz equation suffers from the pollution effect,
+causing numerical wavenumbers to lose accuracy with the physical wavenumber increasing.
+In this section, 
+
+\paragraph{Exact solutions}
+When considering the sourceless ($f=0$) and free-space version of our problem,
+the exact solutions are:
+$
+\forall x \in \mathbb{R}, ~ u(x) = C e^{ikx}
+$
+
+\paragraph{Numerical resolution}
+Using linear interpolation with nodal shape functions $N_i$ that respect the partition of unity and Kronecker delta properties yields the linear system
+$AU^h=0$,
+where $U^h$ is a the vector of nodal values and $A$ is the impedence matrix. \\
+When using our Galerkine formulation, the matrix is
+$A_{G,ij} = \sum_{e \in E} K_{ij}^e - k^2 M_{ij}^e$
+where $E$ is the set of elements whose boundary contain both nodes $i$ and $j$,
+and $K_{ij}^e$ and $M_{ij^e}$
+are respectively stiffness and masse terms assembled using shape functions $i$ and $j$ over the element $e$.
+
+\paragraph{Dispersion relation}
+We consider, without loss of generality, the stencil formed by an interior node $0$ and its neighbours $-1$ et $+1$.
 The "dispersion relation" linear equation between $U^h_0$ and the neighboring nodal values is:
 \begin{equation}
-A_{0, -1}U_{-1} + A_{0, 0}U_{0} + A_{0, +1}U_{+1} = 0 \label{eq:stenicl}
+A_{0, -1}U_{-1}^h + A_{0, 0}U_{0}^h + A_{0, +1}U_{+1}^h = 0 \label{eq:stenicl}
 \end{equation}
 
 
@@ -37,7 +88,7 @@ A_{0, -1}U_{-1} + A_{0, 0}U_{0} + A_{0, +1}U_{+1} = 0 \label{eq:stenicl}
     A_{0, 1} &= \frac{h_{x}^{+} k^{2}}{6} + \frac{1}{h_{x}^{+}}
 \end{align*}
 
-\section{Dispersion analysis}
+
 We assume that the numerical solution can be defined by $u^h(x) = c e^{ik^{h}x}$ where $k^h$ is the numerical wavenumber.
 $h_{x}^{-} = \alpha^{-} h_x$ and $h_{x}^{+} = \alpha^{+} h_x$
 
