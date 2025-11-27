@@ -195,7 +195,7 @@ thus enforcing wavenumber and nodal exactness of the numerical solution.
 \label{GLSNumRes}
 The procedure is similar to the one described in \ref{GalerkineNumRes}.
 However, this time, we have to account for GLS terms during the assembly procedure.
-As we are using linear shape function elements, the Laplacian part of the residue vanishes.
+As we are using linear shape functions, the Laplacian part of the residue vanishes.
 The $k^2$ part remains and the GLS impendence matrix is the following:
 $$A_{GLS,ij} = \sum_{e \in E} K_{ij}^e - k^2 (1 - \tau k^2) M_{ij}^e$$
 
