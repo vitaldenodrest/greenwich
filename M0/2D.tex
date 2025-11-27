@@ -86,56 +86,91 @@ yields the linear system
 $AU^h=0$,
 where $U^h$ is a the vector of nodal values and $A$ is the impedence matrix. \\
 When using our Galerkine formulation, the matrix is
-$A_{G,(i,j)(l,m)} = \sum_{e \in E} K_{(i,j)(l,m)}^e - k^2 M_{(i,j)(l,m)}^e$
-where $E$ is the set of elements whose boundary contain both nodes $(i,j)$ and $(l,m)$,
+$$
+A_{G,(i,j)(l,m)} = \sum_{e \in E} K_{(i,j)(l,m)}^e - k^2 M_{(i,j)(l,m)}^e
+$$
+where $E$ is the set of elements whose boundary contain both nodes of nodal coordinates $(i,j)$ and $(l,m)$,
 and $K_{(i,j)(l,m)}^e$ and $M_{(i,j)(l,m)}^e$
 are respectively stiffness and masse terms assembled using shape functions $(i,j)$ and $(l,m)$ over the element $e$.
 
+\subsubsection{Dispersion relation}
+\label{GalerkineDispRel}
+We study, without loss of generality,
+the stencil formed by an interior node $(0,0)$ and its eight neighbours.
+The four distances from the center node are denoted $h_{\xi}^{\pm}$, with $\xi$ the dimension ($x$ or $y$) and $\pm$ the direction.
+The elements are rectangular. \\
+For convenience, we might use
+$h_{\xi}^{\pm} = \alpha_{\xi}^{\pm} h_{\xi}^{\pm}$ and $2h_{\xi} = h_{\xi}^- + h_{\xi}^+$. \\
+The "dispersion relation" is the line $0$ of the system:
+\begin{equation*}
+\sum_{i,j\in \{-1, 0, +1\}}A_{(0,0)(i,j)}U_{(i,j)}^h\label{eq:stenicl}
+\end{equation*}
+In the following equations for convenience, $\{-, +\}$ could also be used to index neighboring nodes using directions. \\
+The values of the four corner coefficients are, with $i, j \in \{-, +\}$:
 \begin{equation}
-    \sum_{i,j \in {-1, 0, 1}} A_{G, 0, 0}^{i,j} U_{i, j}^h = 0
+    A_{(0,0)(i,j)} = \frac{k^2 h_{x}^i h_{y}^j}{36} + \frac{h_{x}^i}{6 h_{y}^j} + \frac{h_{y}^j}{6 h_{x}^i}
 \end{equation}
-
-Setting $2 h_{\xi} = h_{\xi}^{-} + h_{\xi}^{+}$ with $\xi$ being $x$ or $y$.
-
-The values of the nonzero entries are the following:
-
-Four corner nodes ($i, j \in \{ -, + \}$):
-\begin{equation*}
-    A_{G, 0, 0}^{i, j} = \frac{k^2 h_{x}^i h_{y}^j}{36} + \frac{h_{x}^i}{6 h_{y}^j} + \frac{h_{y}^j}{6 h_{x}^i}
-\end{equation*}
-
-Four side nodes:
-\begin{align*}
-    &A_{G, 0, 0}^{\pm, 0} = \frac{k^{2} h_{x}^{\pm} h_{y} }{9} + \frac{2 h_{y}}{3 h_{x}^{\pm}} - \frac{h_x^{\pm}}{3} \frac{h_{y}}{h_{y}^{-} h_{y}^{+}} \\
-    &A_{G, 0, 0}^{0, \pm} = \frac{k^{2} h_{x} h_{y}^{\pm}}{9} + \frac{2 h_{x}}{3 h_{y}^{\pm}} - \frac{h_y^{\pm}}{3} \frac{h_{x}}{h_{x}^{-} h_{x}^{+}}
-\end{align*}
-
-Center node:
-\begin{equation*}
-    A_{G, 0, 0}^{0, 0} =
-    \frac{4 k^{2} h_{x} h_{y} }{9}
-    - \frac{4h_{x}}{3} \frac{h_{y}}{h_{y}^{-}h_{y}^{+}}
-    - \frac{4h_{y}}{3} \frac{h_{x}}{h_{x}^{-}h_{x}^{+}}
-\end{equation*}
-
-
-Setting $\alpha_{\xi}^{\pm} h_{\xi} = h_{\xi}^{\pm}$ with $\xi$ being $x$ or $y$.
-
-Four side nodes:
-\begin{align*}
-    &A_{G, 0, 0}^{\pm, 0} = \frac{k^{2} h_{x}^{\pm} h_{y} }{9}
+The values of the four side nodes coefficients are:
+\begin{align}
+    &A_{(0,0)(\pm, 0)} = \frac{k^{2} h_{x}^{\pm} h_{y} }{9}
     + \frac{2 h_{y}}{3 h_{x}^{\pm}}
     - \frac{h_x^{\pm}}{3 \alpha_{y}^{-} \alpha_{y}^{+} h_{y}} \\
-    &A_{G, 0, 0}^{0, \pm} = \frac{k^{2} h_{x} h_{y}^{\pm}}{9} + \frac{2 h_{x}}{3 h_{y}^{\pm}} - \frac{h_y^{\pm}}{3 \alpha_{x}^{-} \alpha_{x}^{+} h_{x}}
-\end{align*}
-
-Center node:
+    &A_{(0,0)(0,\pm)} = \frac{k^{2} h_{x} h_{y}^{\pm}}{9}
+    + \frac{2 h_{x}}{3 h_{y}^{\pm}}
+    - \frac{h_y^{\pm}}{3 \alpha_{x}^{-} \alpha_{x}^{+} h_{x}}
+\end{align}
+The value of the center node coefficient is:
 \begin{equation*}
-    A_{G, 0, 0}^{0, 0} =
+    A_{(0,0)(0,0)} =
     \frac{4 k^{2} h_{x} h_{y} }{9}
-    - \frac{4h_{x}}{3 \alpha_{y}^{-} \alpha_{y}^{+} h_{y}}
-    - \frac{4h_{y}}{3 \alpha_{x}^{-} \alpha_{x}^{+} h_{x}}
+    - \frac{4 h_{x}}{3 \alpha_{y}^{-} \alpha_{y}^{+} h_{y}}
+    - \frac{4 h_{y}}{3 \alpha_{x}^{-} \alpha_{x}^{+} h_{x}}
 \end{equation*}
+
+\subsubsection{Numerical solution}
+We assume that the numerical solution can be defined by $u^h(x) = C e^{i(k_x^h x + k_y^h y)}$
+with two numerical wavenumbers $k_x^h = k^h cos{\theta}$ and $k_y^h = k^h sin{\theta}$.
+
+\subsubsection{Dispersion relation}
+The numerical wave number $k^h$ is asymptotically linked to the exact wavenumber when !!!:
+\begin{equation}
+    k^h \approx !!!
+\end{equation}
+
+\textit{Proof.}
+Substituting the nodal numerical values in the dispertion relation \cref{eq:stenicl} yields a relation between that we can solve for $k^2$.
+Due to this expression being long, we will use the following notations:
+\begin{align*}
+    &f_{\xi}^{\pm} = cos{\left(k_{\xi}^h h_{\xi}^{\pm}\right)} \text{ with } \xi \in \{x,y\} \\
+    &g^{--} = cos{\left(h_x^- k_x^h + h_y^- k_y^h\right)} \\
+    &g^{++} = cos{\left(h_x^+ k_x^h + h_y^+ k_y^h\right)} \\
+    &g^{-+} = cos{\left(h_x^- k_x^h - h_y^+ k_y^h\right)} \\
+    &g^{+-} = cos{\left(h_x^+ k_x^h - h_y^- k_y^h\right)}
+\end{align*}
+\tiny
+\begin{equation}
+    \label{eq:k2}
+    k^2 = \frac{
+        \kappa_0
+        +
+        \kappa_x^- f_{x}^{-} + \kappa_x^+ f_{x}^{+} + \kappa_y^- f_{y}^{-} + \kappa_y^+ f_{y}^{+}
+        +
+        \kappa^{--} g^{--} + \kappa^{++} g^{++} + \kappa^{-+} g^{-+} + \kappa^{+-} g^{+-}
+    }
+    {
+        h_x^- h_x^+ h_y^- h_y^+ \left(
+            \lambda_0
+            +
+            \lambda_x^- f_{x}^{-} + \lambda_x^+ f_{x}^{+} + \lambda_y^- f_{y}^{-} + \lambda_y^+ f_{y}^{+}
+            +
+            \lambda^{--} g^{--} + \lambda^{++} g^{++} + \lambda^{-+} g^{-+} + \lambda^{+-} g^{+-}
+        \right)
+    }
+\end{equation}
+\normalsize
+
+
+
 
 
 \begin{equation*}
