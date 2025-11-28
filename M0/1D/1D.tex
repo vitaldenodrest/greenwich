@@ -102,7 +102,7 @@ We study, without loss of generality,
 the stencil formed by an interior node $0$ and its neighbours $-1$ et $+1$.
 The distances between those nodes are $h_x^-$ and $h_x^+$. \\
 For convenience, we might use
-$h_{x}^{-} = \alpha_x^{-} h_x$, $h_{x}^{+} = \alpha_x^{+} h_x$ and $2h_{x} = h_{x}^- + h_{x}^+$. \\
+$h_{x}^{-} = \alpha_x^{-} h$, $h_{x}^{+} = \alpha_x^{+} h$ and $2h = h_{x}^- + h_{x}^+$. \\
 The "dispersion relation" is the line $0$ of the system:
 \begin{equation}
 A_{0, -1}U_{-1}^h + A_{0, 0}U_{0}^h + A_{0, +1}U_{+1}^h = 0 \label{eq:stenicl}
@@ -110,7 +110,7 @@ A_{0, -1}U_{-1}^h + A_{0, 0}U_{0}^h + A_{0, +1}U_{+1}^h = 0 \label{eq:stenicl}
 The values of the coefficients are:
 \begin{align}
     A_{0, -1} &= \frac{h_{x}^{-} k^{2}}{6} + \frac{1}{h_{x}^{-}} \\
-    A_{0, 0} &= \frac{2h_{x} k^{2}}{3} - \frac{2}{\alpha_{x}^{-} \alpha_{x}^{-} h_{x}} \\
+    A_{0, 0} &= \frac{2h k^{2}}{3} - \frac{2}{\alpha_{x}^{-} \alpha_{x}^{-} h} \\
     A_{0, +1} &= \frac{h_{x}^{+} k^{2}}{6} + \frac{1}{h_{x}^{+}}
 \end{align}
 
@@ -118,9 +118,9 @@ The values of the coefficients are:
 We assume that the numerical solution can be defined by $u^h(x) = C e^{ik^{h}x}$ where $k^h$ is the numerical wavenumber.
 
 \subsubsection{Dispersion relation}
-The numerical wave number $k^h$ is asymptotically linked to the exact wavenumber when $k^h h_x \to 0$ and $k h_x \to 0$:
+The numerical wave number $k^h$ is asymptotically linked to the exact wavenumber when $k^h h \to 0$ and $k h \to 0$:
 \begin{equation}
-    k^h \approx k - \frac{1}{24} \left({\alpha^{-}}^2 + {\alpha^{+}}^2 - \alpha^{-} \alpha^{+}\right) k^3 h_x^2
+    k^h \approx k - \frac{1}{24} \left({\alpha_x^{-}}^2 + {\alpha_x^{+}}^2 - \alpha_x^{-} \alpha_x^{+}\right) k^3 h^2
 \end{equation}
 
 \textit{Proof.}
@@ -132,42 +132,42 @@ Substituting the nodal numerical values in the dispertion relation \cref{eq:sten
     {\alpha_{x}^{-} \left( 2 + \cos{h_{x}^{-} k^{h}} \right) + \alpha_{x}^{+} \left( 2 + \cos{h_{x}^{+} k^{h}} \right)}
 \end{equation}
 However, it cannot be exressed as $k^h = f(k)$ because of the cosines of varying wavenumbers.
-We need to use a Taylor expansion on the cosines when $h_x k^h \to 0$:
+We need to use a Taylor expansion on the cosines when $h k^h \to 0$:
 \begin{equation}
-    \cos{\left(\alpha^{\pm} h_{x} k^{h} \right)} = 1 - \frac{{\alpha^{\pm}}^2}{2} (h_x k^k)^2 + \frac{{\alpha^{\pm}}^4}{24} (h_x k^h)^4 + O((h_x k^h)^6)
+    \cos{\left(\alpha_x^{\pm} h k^{h} \right)} = 1 - \frac{{\alpha_x^{\pm}}^2}{2} (h k^k)^2 + \frac{{\alpha_x^{\pm}}^4}{24} (h k^h)^4 + O((hk^h)^6)
 \end{equation}
 Substituting this expansion in \cref{eq:k2} and simplifying by common factors yields
-an expression for $(k h_x)^2$ as a ratio of polynomials. It can be rewritten as:
+an expression for $(k h)^2$ as a ratio of polynomials. It can be rewritten as:
 \begin{align*}
-    &(k h_x)^2 = X \frac{1}{1-Y} \\
-    &X = (h_x k^{h})^2 + \chi (h_x k^{h})^4 + O((h_x k^{h})^6) \\
-    &Y = \gamma_1 (h_x k^{h})^2 + \gamma_2 (h_x k^{h})^4 + O((h_x k^{h})^6) \\
-    &\chi= - \frac{1}{12} \left({\alpha^{-}}^2 + {\alpha^{+}}^2 - \alpha^{-} \alpha^{+}\right) \\
-    &\gamma_1 = \frac{1}{6} \left({\alpha^{-}}^2 + {\alpha^{+}}^2 - \alpha^{-} \alpha^{+}\right)  =-2 \chi \\
-    &\gamma_2 = - \frac{1}{72} \frac{{\alpha^{-}}^5 + {\alpha^{+}}^5}{\alpha^{-} + \alpha^{+}}
+    &(k h)^2 = X \frac{1}{1-Y} \\
+    &X = (h k^{h})^2 + \chi (h k^{h})^4 + O((h k^{h})^6) \\
+    &Y = \gamma_1 (h k^{h})^2 + \gamma_2 (h k^{h})^4 + O((h k^{h})^6) \\
+    &\chi= - \frac{1}{12} \left({\alpha_x^{-}}^2 + {\alpha_x^{+}}^2 - \alpha_x^{-} \alpha_x^{+}\right) \\
+    &\gamma_1 = \frac{1}{6} \left({\alpha_x^{-}}^2 + {\alpha_x^{+}}^2 - \alpha_x^{-} \alpha_x^{+}\right)  =-2 \chi \\
+    &\gamma_2 = - \frac{1}{72} \frac{{\alpha_x^{-}}^5 + {\alpha_x^{+}}^5}{\alpha_x^{-} + \alpha_x^{+}}
 \end{align*}
-$Y \to 0$ as $h_x k^{h} \to 0$, thus allowing the following Taylor expansion:
+$Y \to 0$ as $h k^{h} \to 0$, thus allowing the following Taylor expansion:
 \begin{equation}
     \label{eq:YY}
-    \frac{1}{1-Y} = 1 + \gamma_1 (h_x k^{h})^2 + (\gamma_1^2 + \gamma_2) (h_x k^{h})^4 + O((h_x k^{h})^6)
+    \frac{1}{1-Y} = 1 + \gamma_1 (h k^{h})^2 + (\gamma_1^2 + \gamma_2) (h k^{h})^4 + O((h k^{h})^6)
 \end{equation}
-A polynomial expression of $(k h_x)^2$ is now available as a product of $X$ and $\frac{1}{1-Y}$:
+A polynomial expression of $(k h)^2$ is now available as a product of $X$ and $\frac{1}{1-Y}$:
 \begin{equation}
-    (k h_x)^2 = (h_x k^{h})^2 - \chi (h_x k^{h})^4 + O((h_x k^{h})^6) \label{eq:khx2}
+    (k h)^2 = (h k^{h})^2 - \chi (h k^{h})^4 + O((h k^{h})^6) \label{eq:khx2}
 \end{equation}
-We need an expansion of $(h_xk^h)^2$ as powers of $(kh)^2$.
+We need an expansion of $(h k^h)^2$ as powers of $(kh)^2$.
 This is possible thanks to a series reversion (cite).
 The first step is writing the Taylor expansion we are aiming for:
 \begin{equation}
-    (k^h h_x)^2 \approx \alpha_1 ((k h_x)^{2})^1 + \alpha_2 ((k h_x)^{2})^2 \label{eq:cible} % Precision ?
+    (k^h h)^2 \approx \alpha_1 ((k h)^{2})^1 + \alpha_2 ((k h)^{2})^2 \label{eq:cible} % Precision ?
 \end{equation}
 Then, substituting \cref{eq:cible} into \cref{eq:khx2} allows us to determine the right coefficients for the expansion:
 \begin{equation}
-    (k^h h_x)^2 \approx (k h_x)^2 + \chi (k h_x)^4 \label{eq:square}
+    (k^h h)^2 \approx (k h)^2 + \chi (k h)^4 \label{eq:square}
 \end{equation}
-The last step is extracting the Taylor series of \cref{eq:square}, with $k^h h_x > 0$:
+The last step is extracting the Taylor series of \cref{eq:square}, with $k^h h > 0$:
 \begin{equation}
-    k^h h_x \approx k h_x + \frac{1}{2} \chi (k h_x)^3
+    k^h h \approx k h + \frac{1}{2} \chi (k h)^3
 \end{equation}
 This concludes the proof. $\square$
 
@@ -197,14 +197,14 @@ $$
 \frac{6}{k^2 h_{x}^{-} h_{x}^{+}}
 \frac
 {
-    \alpha^{-} \left( 1 - \cos{h_{x}^{+} k} \right)
+    \alpha_x^{-} \left( 1 - \cos{h_{x}^{+} k} \right)
     +
-    \alpha^{+} \left( 1 - \cos{h_{x}^{-} k} \right)
+    \alpha_x^{+} \left( 1 - \cos{h_{x}^{-} k} \right)
 }
 {
-    \alpha^{-} \left( 2 + \cos{h_{x}^{-} k} \right)
+    \alpha_x^{-} \left( 2 + \cos{h_{x}^{-} k} \right)
     +
-    \alpha^{+} \left( 2 + \cos{h_{x}^{+} k} \right)
+    \alpha_x^{+} \left( 2 + \cos{h_{x}^{+} k} \right)
 }
 $$
 
