@@ -22,6 +22,8 @@
 \fancyhead[L]{V. de Nodrest, F. Magoulès, C. Lai, E. George}
 \fancyhead[R]{}
 
+\newtheorem{theorem}{Theorem}[subsection]
+
 \begin{document}
 
 
@@ -87,7 +89,7 @@ Our studies will revolve around this case.
 
 \subsection{Dispersion analysis}
 
-\subsubsection{Numerical resolution}
+\paragraph{Numerical resolution}
 \label{GalerkineNumRes}
 Using linear interpolation with nodal shape functions $N_i$ that respect the partition of unity and Kronecker delta properties yields the linear system
 $AU^h=0$,
@@ -98,7 +100,7 @@ where $E$ is the set of elements whose boundary contain both nodes $i$ and $j$,
 and $K_{ij}^e$ and $M_{ij}^e$
 are respectively stiffness and masse terms assembled using shape functions $i$ and $j$ over the element $e$.
 
-\subsubsection{Dispersion relation}
+\paragraph{Dispersion relation}
 \label{GalerkineDispRel}
 We study, without loss of generality,
 the stencil formed by an interior node $0$ and its neighbours of indexes $-1$ et $+1$.
@@ -123,14 +125,16 @@ The values of the coefficients are:
     A_{0, +1} &= \frac{h_{x}^{+} k^{2}}{6} + \frac{1}{h_{x}^{+}}
 \end{align}
 
-\subsubsection{Numerical solution}
+\paragraph{Numerical solution}
 We assume that the numerical solution can be defined by $u^h(x) = C e^{ik^{h}x}$ where $k^h$ is the numerical wavenumber.
 
-\subsubsection{Dispersion relation}
-The numerical wave number $k^h$ is asymptotically linked to the exact wavenumber when $k^h h \to 0$ and $k h \to 0$:
-\begin{equation}
-    k^h \approx k - \frac{1}{24} \left({\alpha_x^{-}}^2 + {\alpha_x^{+}}^2 - \alpha_x^{-} \alpha_x^{+}\right) k^3 h^2
-\end{equation}
+
+\begin{theorem}[Dispersion relation]
+    The numerical wave number $k^h$ is asymptotically linked to the exact wavenumber $k$ when $k^h h \to 0$ and $k h \to 0$:
+    \begin{equation}
+        k^h \approx k - \frac{1}{24} \left({\alpha_x^{-}}^2 + {\alpha_x^{+}}^2 - \alpha_x^{-} \alpha_x^{+}\right) k^3 h^2
+    \end{equation}
+\end{theorem}
 
 \textit{Proof.}
 Substituting the nodal numerical values in the dispertion relation \cref{eq:stenicl} yields a relation between $k$ and $k^h$ that we can solve for $k^2$:
@@ -181,13 +185,14 @@ The last step is extracting the Taylor series of \cref{eq:square}, with $k^h h >
 This concludes the proof. $\square$
 
 
+
 \subsection{Optimal GLS parameter}
 Our goal is to find a value for the parameter $\tau$ for each line of the linear system
 $AU^h=0$.
 This parameter is designed with the goal of obtaining $k=k^h$ with the GLS method,
 thus enforcing wavenumber and nodal exactness of the numerical solution.
 
-\subsubsection{GLS numerical resolution}
+\paragraph{GLS numerical resolution}
 \label{GLSNumRes}
 The procedure is similar to the one described in \ref{GalerkineNumRes}.
 However, this time, we have to account for GLS terms during the assembly procedure.
@@ -196,31 +201,32 @@ The $k^2$ part remains and the GLS impendence matrix is the following:
 $$A_{GLS,ij} = \sum_{e \in E} K_{ij}^e - k^2 (1 - \tau k^2) M_{ij}^e$$
 
 
-\subsubsection{Optimal GLS parameter}
-The optimal parameter $\tau_0$ associated with the center node is:
-$$
-\tau_0 k^2
-=
-1
--
-\frac{6}{k^2 h_{x}^{-} h_{x}^{+}}
-\frac
-{
-    \alpha_x^{-} \left( 1 - \cos{h_{x}^{+} k} \right)
-    +
-    \alpha_x^{+} \left( 1 - \cos{h_{x}^{-} k} \right)
-}
-{
-    \alpha_x^{-} \left( 2 + \cos{h_{x}^{-} k} \right)
-    +
-    \alpha_x^{+} \left( 2 + \cos{h_{x}^{+} k} \right)
-}
-$$
+\begin{theorem}[Optimal GLS parameter]
+    The optimal GLS parameter $\tau_0$ associated with the center node is:
+    $$
+    \tau_0 k^2
+    =
+    1
+    -
+    \frac{6}{k^2 h_{x}^{-} h_{x}^{+}}
+    \frac
+    {
+        \alpha_x^{-} \left( 1 - \cos{h_{x}^{+} k} \right)
+        +
+        \alpha_x^{+} \left( 1 - \cos{h_{x}^{-} k} \right)
+    }
+    {
+        \alpha_x^{-} \left( 2 + \cos{h_{x}^{-} k} \right)
+        +
+        \alpha_x^{+} \left( 2 + \cos{h_{x}^{+} k} \right)
+    }
+    $$
+\end{theorem}
 
 \textit{Proof.}
-The main route when computing this parameter is writing the GLS dispersion relation as in \ref{GalerkineDispRel} by
+The most straightforward approach to computing this parameter is writing the GLS dispersion relation as in \ref{GalerkineDispRel} by
 replacing $k^2$ by $k^2 (1 - \tau k^2)$, as demonstrated in \ref{GLSNumRes}.
-Then, we set all wavenumbers to $k$, thus enforcing numerical solution exactness.
+Then, setting all wavenumbers to $k$, enforces numerical solution exactness.
 Finally, solving for $\tau$ yields the parameter making this possible. \\
 One might notice that it is possible to find a shortcut using \cref{eq:k2}.
 
