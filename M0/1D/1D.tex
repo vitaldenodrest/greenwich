@@ -20,8 +20,8 @@
 \fancyhead[L]{V. de Nodrest, F. Magoulès, C. Lai, E. George}
 \fancyhead[R]{}
 
-
 \begin{document}
+
 
 \section{Problem statement}
 
@@ -57,7 +57,8 @@ a_G: H_0^1(\Omega)^2 &\to \mathbb{C} \\
 \end{align*}
 We will use a mesh method to build $\mathcal{V}^h$, partitioning $\Omega$ in mutually exclusive elements.
 
-\subsection{GLS}
+\subsection{GLS formulation}
+
 The Galerkin/least-squares formulation uses the previous formulation and adds other terms whose purpose is to minimize the square of the residue over the element interiors $\tilde{\Omega}$.
 Their contribution is weighted by a parameter $\tau$ :
 $$
@@ -234,7 +235,5 @@ replacing $k^2$ by $k^2 (1 - \tau k^2)$, as demonstrated in \ref{GLSNumRes}.
 Then, we set all wavenumbers to $k$, thus enforcing numerical solution exactness.
 Finally, solving for $\tau$ yields the parameter making this possible. \\
 One might notice that it is possible to find a shortcut using \cref{eq:k2}.
-
-
 
 \end{document}
