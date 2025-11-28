@@ -1,5 +1,7 @@
 \documentclass{article}
 
+\usepackage{graphicx}
+\usepackage{float}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[
@@ -99,8 +101,15 @@ are respectively stiffness and masse terms assembled using shape functions $i$ a
 \subsubsection{Dispersion relation}
 \label{GalerkineDispRel}
 We study, without loss of generality,
-the stencil formed by an interior node $0$ and its neighbours $-1$ et $+1$.
-The distances between those nodes are $h_x^-$ and $h_x^+$. \\
+the stencil formed by an interior node $0$ and its neighbours of indexes $-1$ et $+1$.
+The distances between those nodes are $h_x^-$ and $h_x^+$, as shown in the figure below:
+
+\begin{figure}[h]
+    \center
+    \includegraphics[width=0.5\textwidth]{mesh_tikz.pdf}
+    \caption{Node $0$ and its neighbors}
+\end{figure}
+
 For convenience, we might use
 $h_{x}^{-} = \alpha_x^{-} h$, $h_{x}^{+} = \alpha_x^{+} h$ and $2h = h_{x}^- + h_{x}^+$. \\
 The "dispersion relation" is the line $0$ of the system:
